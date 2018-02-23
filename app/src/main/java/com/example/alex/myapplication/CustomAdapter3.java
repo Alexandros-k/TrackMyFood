@@ -1,6 +1,7 @@
 package com.example.alex.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 
 /**
@@ -23,13 +26,13 @@ public class CustomAdapter3 extends BaseAdapter {
     MyDBHandler dbHandler;
     DataProviderToCustomAdapter dp;
     CustomAdapter2 ca;
-    DailyDbHelper dh;
+    DailyDbHelper dailyDbHelper;
 
     public CustomAdapter3(Context context) {
         dbHandler = new MyDBHandler(context, null, null, 1);
         foodList = dbHandler.loadHandler2();
         dpList = new ArrayList<>();
- dh = new DailyDbHelper(context, null, null, 1);
+ dailyDbHelper = new DailyDbHelper(context, null, null, 1);
 
             for (int i = 0; i < foodList.size(); i++)
             {
@@ -103,6 +106,23 @@ public class CustomAdapter3 extends BaseAdapter {
 
             }
         });
+
+
+
+        Button addBtn = view.findViewById(R.id.buttonAdd);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(v.getContext(),PopUp.class);
+                in.putExtra("position",position);
+                startActivity(v.getContext(),in,null);
+            }
+        });
+
+
+
+
+
 
 
         return view;

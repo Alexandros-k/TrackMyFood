@@ -84,22 +84,16 @@ public class TodayFood extends AppCompatActivity {
                 + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr, ");
     }
 
-
-
     private Calendar yesterday(int i) {
         final Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -i);
         return cal;
     }
 
-
-
     private String getYesterdayDateString() {
         DateFormat dateFormat = new SimpleDateFormat("E_d_M_y");
         return dateFormat.format(yesterday(i).getTime());
     }
-
-
 
     public void showYesterdayFoods(String date) {
 
@@ -116,9 +110,6 @@ public class TodayFood extends AppCompatActivity {
              displayTotalMicroNutrients(dailyDbHelper.loadHandler5(date));
          }
 
-
-
-
     private String getNextDateString(int i) {
          cal = Calendar.getInstance();
                   cal.add(Calendar.DATE, -i);
@@ -126,7 +117,6 @@ public class TodayFood extends AppCompatActivity {
         return dateFormat.format(cal.getTime());
 
     }
-
 
     public void showNextDayFoods(String nextDay) {
 

@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Alex on 2/4/2018.
@@ -20,7 +21,8 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
 
     //information of database
     Date now = new Date();
-    DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y");
+
+    DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y", Locale.ENGLISH);
     String day = dateFormatter.format(now);
    // String yesterday = getYesterdayDateString();
     //String nextDay=getNextDateString();

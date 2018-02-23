@@ -24,6 +24,7 @@ public class FoodRegistration extends AppCompatActivity {
     String name;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,9 @@ public class FoodRegistration extends AppCompatActivity {
                         addFoodToday(name);
                         Toast.makeText(FoodRegistration.this, "Food saved!",
                                 Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(FoodRegistration.this, TodayFood.class));
+
+
+
                          }
 
 

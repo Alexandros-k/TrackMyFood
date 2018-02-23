@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registrationId"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundpic"
+    tools:context="com.example.alex.myapplication.FoodRegistration">
+
+    <EditText
+        android:id="@+id/KcalId"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="57dp"
+        android:ems="10"
+        android:hint="Kcal"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/proteinId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gramId" />
+
+    <EditText
+        android:id="@+id/foodNameId"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="57dp"
+        android:ems="10"
+        android:hint="FoodName"
+        android:inputType="text"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/gramId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/gramId"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="57dp"
+        android:ems="10"
+        android:hint="Gram"
+        android:inputType="number"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/KcalId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodNameId" />
+
+    <EditText
+        android:id="@+id/proteinId"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="57dp"
+        android:ems="10"
+        android:hint="Protein"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/carbsId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/KcalId" />
+
+    <EditText
+        android:id="@+id/carbsId"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="57dp"
+        android:ems="10"
+        android:hint="Carbs"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/fatsId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/proteinId" />
+
+    <EditText
+        android:id="@+id/fatsId"
+        android:layout_width="206dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="57dp"
+        android:ems="10"
+        android:hint="Fats"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/SaveFoodId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carbsId" />
+
+    <Button
+        android:id="@+id/SaveFoodId"
+        android:layout_width="79dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="121dp"
+        android:background="@drawable/button"
+        android:onClick="addFood"
+        android:text="save"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fatsId" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="131dp"
+        android:layout_marginStart="131dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/foodNameId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

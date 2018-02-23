@@ -110,8 +110,9 @@ public class CustomAdapter2 extends BaseAdapter {
 
         foodId.setText("ID: "+String.valueOf(dpList.get(position).getID()));
         foodName.setText(String.valueOf(dpList.get(position).getName()));
-        foodKcal.setText(String.valueOf(dpList.get(position).getKcal()));
-        foodGram.setText(String.valueOf(dpList.get(position).getGram())+" gr");
+        foodKcal.setText(String.valueOf(dpList.get(position).getKcal())+" gr"
+        );
+        foodGram.setText(String.valueOf(dpList.get(position).getGram()));
         foodProtein.setText(String.valueOf(dpList.get(position).getProtein()+" gr"));
         foodCarbs.setText(String.valueOf(dpList.get(position).getCarbs())+" gr");
         foodFats.setText(String.valueOf(dpList.get(position).getFats())+" gr");
@@ -129,8 +130,11 @@ public class CustomAdapter2 extends BaseAdapter {
                 dpList.remove(position);
 
                 notifyDataSetChanged();
+
+
             }
         });
+
 
 
         return view;

@@ -36,9 +36,9 @@ public class AddFood extends AppCompatActivity {
         foodName = findViewById(R.id.addFoodNameId);
         foodGram = findViewById(R.id.addGramFoodId);
 
-        //
 
-        Button mButton1 = (Button) findViewById(R.id.addFoodId);
+
+        Button mButton1 = findViewById(R.id.addFoodId);
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,22 +47,6 @@ public class AddFood extends AppCompatActivity {
                 addFood(name,gram);
             }
         });
-
-       /* Button mButton2 = (Button) findViewById(R.id.button);
-        mButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AddFood.this, FoodRegistration.class));
-            }
-        });*/
-
-
-
-
-
-
-
-
 
 
     }
