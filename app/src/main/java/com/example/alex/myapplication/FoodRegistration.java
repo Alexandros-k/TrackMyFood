@@ -1,11 +1,17 @@
 package com.example.alex.myapplication;
 
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TabHost;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +29,8 @@ public class FoodRegistration extends AppCompatActivity {
     TextView textView;
     String name;
 
-
+    ViewPager mViewPager;
+    Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +44,16 @@ public class FoodRegistration extends AppCompatActivity {
         foodFats = findViewById(R.id.fatsId);
         textView = findViewById(R.id.textView8);
 
-        Bundle extras = getIntent().getExtras();
+
+      /*  Bundle extras = getIntent().getExtras();
         if (extras != null) {
              name = extras.getString("Name");
             int gram =extras.getInt("Gram");
 
             foodName.setText(name);
             foodGram.setText(String.valueOf(gram));
-        }
-
-
-
-
-        Button SaveFoodBtn = (Button) findViewById(R.id.SaveFoodId);
+        }*/
+        Button SaveFoodBtn = findViewById(R.id.SaveFoodId);
 
 
         SaveFoodBtn.setOnClickListener(
@@ -57,23 +61,15 @@ public class FoodRegistration extends AppCompatActivity {
                     public void onClick(View view) {
 
                         addFood(view);
-                        addFoodToday(name);
-                        Toast.makeText(FoodRegistration.this, "Food saved!",
+                       // addFoodToday(name);
+                       Toast.makeText(FoodRegistration.this, "Food saved!",
                                 Toast.LENGTH_LONG).show();
+                                finish();
 
-
-
-                         }
+                    }
 
 
                 });
-
-
-
-
-
-
-
 
 
     }

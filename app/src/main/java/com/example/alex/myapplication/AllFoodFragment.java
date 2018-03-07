@@ -1,22 +1,17 @@
 package com.example.alex.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * Created by Alex on 2/14/2018.
@@ -27,85 +22,91 @@ public class AllFoodFragment extends Fragment {
     private static final String TAG = "AllFoodFragment";
 
     DailyDbHelper dailyDbHelper;
-    Button deleteBtn;
-    DataProviderToCustomAdapter dp;
     CustomAdapter3 customAdapter;
     ListView lv;
-    ArrayList<Food> foodList;
     int i = 0;
-    Calendar cal;
-    TextView tev;
-    TextView tev2;
+   static TextView tv;
+    static TextView  tv2;
+    FloatingActionButton myFab;
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
 
     }
 
 
     public AllFoodFragment() {
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_all_food, container, false);
+        View view = inflater.inflate(R.layout.activity_all_food,container,false);
 
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-         lv = getView().findViewById(R.id.lv2);
+        lv = view.findViewById(R.id.lv2);
         customAdapter = new CustomAdapter3(getContext());
         lv.setAdapter(customAdapter);
 
+        tv2 = view.findViewById(R.id.buttonAdd);
 
-
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            public boolean onItemLongClick(AdapterView<?> arg0, View v,
-                                           int index, long arg3) {
-                ConstraintLayout das = getView().findViewById(R.id.custAdaptId);
-                ViewGroup.LayoutParams dir = das.getLayoutParams();
-
-
-
-                tev = v.findViewById(R.id.buttondel);
-                 tev2 = v.findViewById(R.id.buttonAdd);
-               if(tev.getVisibility()==View.INVISIBLE && tev2.getVisibility()==View.INVISIBLE) {
-                   tev.setVisibility(View.VISIBLE);
-                   tev2.setVisibility(View.VISIBLE);
-                   //dir.height= Integer.parseInt("90");
-
-               }else if(tev.getVisibility()==View.VISIBLE && tev2.getVisibility()==View.VISIBLE) {
-                   tev.setVisibility(View.INVISIBLE);
-                   tev2.setVisibility(View.INVISIBLE);
-                   //dir.height= Integer.parseInt("30");
-               }
-                return false;
+        myFab =view.findViewById(R.id.fabId);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), FoodRegistration.class));
             }
         });
 
 
 
 
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
+            public boolean onItemLongClick(AdapterView<?> arg0, View v,int index, long arg3) {
+                showButtons(v);
+                return false;
+            }
+        });
+        return view;
     }
+
+
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onStart() {
+        super.onStart();
+        customAdapter = new CustomAdapter3(getContext());
+        lv.setAdapter(customAdapter);
+    }
 
 
+    public void showButtons(View view) {
+
+        tv = view.findViewById(R.id.buttondel);
+        tv2 = view.findViewById(R.id.buttonAdd);
+        if(tv.getVisibility()==View.GONE && tv2.getVisibility()==View.GONE) {
+            tv.setVisibility(View.VISIBLE);
+            tv2.setVisibility(View.VISIBLE);
 
 
-
+        }else if(tv.getVisibility()==View.VISIBLE && tv2.getVisibility()==View.VISIBLE ) {
+            tv.setVisibility(View.GONE);
+            tv2.setVisibility(View.GONE);
+        }
 
     }
-}
+
+    public static void hideButtons() {
+
+
+       tv2.setVisibility(View.GONE);
+       tv.setVisibility(View.GONE);
+
+        }
+
+    }
+
+

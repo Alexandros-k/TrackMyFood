@@ -5,6 +5,7 @@
     android:id="@+id/custAdaptId"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:descendantFocusability="blocksDescendants">//this is for using both button and listview
     click
 
@@ -13,18 +14,24 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvFats"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/tvId"
+        android:ellipsize="marquee"
+        android:maxLength="6"
+
+        android:singleLine="true"
+        android:text="Text"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvGram"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035" />
 
     <TextView
         android:id="@+id/tvGram"
@@ -33,15 +40,17 @@
         android:layout_alignParentLeft="true"
 
 
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:layout_toLeftOf="@+id/tvName"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/tvId"
+        android:text="text"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvKcal"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035" />
 
     <TextView
         android:id="@+id/tvKcal"
@@ -50,16 +59,18 @@
 
         android:layout_alignBaseline="@+id/tvName"
         android:layout_alignBottom="@+id/tvName"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/tvName"
         android:layout_toRightOf="@+id/tvName"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttondel"
+        android:text="Text"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvProtein"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvGram"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045" />
 
     <TextView
         android:id="@+id/tvProtein"
@@ -67,16 +78,18 @@
         android:layout_height="wrap_content"
 
         android:layout_below="@+id/tvId"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:layout_toLeftOf="@+id/tvId"
         android:layout_toStartOf="@+id/tvId"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttondel"
+        android:text="Text"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvCarbs"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvKcal"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04" />
 
     <TextView
         android:id="@+id/tvCarbs"
@@ -85,14 +98,16 @@
         android:layout_alignLeft="@+id/buttondel"
         android:layout_alignStart="@+id/buttondel"
         android:layout_below="@+id/tvFats"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+        android:text="Text"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvFats"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvProtein"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04" />
 
     <TextView
         android:id="@+id/tvFats"
@@ -102,14 +117,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+        android:text="Text"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvCarbs"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04" />
 
     <TextView
         android:id="@+id/tvId"
@@ -118,15 +135,15 @@
         android:layout_alignLeft="@+id/tvName"
         android:layout_alignStart="@+id/tvName"
         android:layout_below="@+id/tvName"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttondel"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintVertical_bias="0.384" />
 
     <Button
         android:id="@+id/buttondel"
@@ -135,18 +152,16 @@
 
 
         android:layout_below="@+id/tvGram"
-        android:layout_marginBottom="2dp"
-        android:layout_marginTop="7dp"
         android:layout_toEndOf="@+id/tvFats"
         android:layout_toRightOf="@+id/tvFats"
         android:background="?attr/colorError"
         android:text="Delete"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvId"
-        app:layout_constraintTop_toBottomOf="@+id/tvGram" />
+        app:layout_constraintStart_toEndOf="@+id/buttonAdd"
+        app:layout_constraintTop_toBottomOf="@+id/tvCarbs" />
 
     <Button
         android:id="@+id/buttonAdd"
@@ -155,18 +170,15 @@
 
 
         android:layout_below="@+id/tvGram"
-        android:layout_marginBottom="1dp"
-        android:layout_marginTop="7dp"
         android:layout_toEndOf="@+id/tvFats"
         android:layout_toRightOf="@+id/tvFats"
         android:background="@android:color/holo_green_light"
         android:text="Add"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttondel"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttondel"
-        app:layout_constraintTop_toBottomOf="@+id/tvProtein"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintStart_toEndOf="@+id/tvId"
+        app:layout_constraintTop_toBottomOf="@+id/tvKcal" />
 
 </android.support.constraint.ConstraintLayout>

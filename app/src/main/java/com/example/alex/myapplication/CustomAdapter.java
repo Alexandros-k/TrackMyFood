@@ -84,13 +84,13 @@ View view;
             handler = (DataHandler) view.getTag();
         }
         handler = new DataHandler();
-        handler.foodId = (TextView) view.findViewById(R.id.tvId);
-        handler.foodName = (TextView) view.findViewById(R.id.tvName);
-        handler.foodKcal = (TextView) view.findViewById(R.id.tvKcal);
-        handler.foodGram = (TextView) view.findViewById(R.id.tvGram);
-        handler.foodProtein = (TextView) view.findViewById(R.id.tvProtein);
-        handler.foodCarbs = (TextView) view.findViewById(R.id.tvCarbs);
-        handler.foodFats = (TextView) view.findViewById(R.id.tvFats);
+        handler.foodId = view.findViewById(R.id.tvId);
+        handler.foodName = view.findViewById(R.id.tvName);
+        handler.foodKcal = view.findViewById(R.id.tvKcal);
+        handler.foodGram = view.findViewById(R.id.tvGram);
+        handler.foodProtein = view.findViewById(R.id.tvProtein);
+        handler.foodCarbs = view.findViewById(R.id.tvCarbs);
+        handler.foodFats = view.findViewById(R.id.tvFats);
 
 
         DataProviderToCustomAdapter dataProvider;
@@ -112,8 +112,8 @@ View view;
 
 
     public void delete(final int position, View view){
-        Button deleteBtn = (Button)view.findViewById(R.id.buttondel);
-         lv = (ListView)view. findViewById(R.id.listview1);
+        Button deleteBtn = view.findViewById(R.id.buttondel);
+         lv = view. findViewById(R.id.listview1);
 
 
         deleteBtn.setOnClickListener(new View.OnClickListener(){

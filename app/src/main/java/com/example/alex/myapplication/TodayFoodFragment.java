@@ -35,69 +35,60 @@ public class TodayFoodFragment extends Fragment {
     TextView tv1;
     Main2Activity main2Activity;
     TextView tv;
-    String day1;
-    boolean BtnIsPressed;
+    Food food;
+    DateFormat dateFormat;
+    TextView tev;
+    Button previousBtn;
+    Button nextBtn;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
 
     }
 
 
-    public TodayFoodFragment() {
 
+
+    public static Fragment getInstance(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("pos", position);
+        TodayFoodFragment todayFoodFragment = new TodayFoodFragment();
+        todayFoodFragment.setArguments(bundle);
+        return todayFoodFragment;
     }
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_today_food,container,false);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        lv =  getView().findViewById(R.id.listview1);
-
-        tv1 =getView().findViewById(R.id.textView9);
+        lv = view.findViewById(R.id.listview1);
+        tv1 = view.findViewById(R.id.textView9);
+        tv = view.findViewById(R.id.textView10);
+        tev = view.findViewById(R.id.buttondel);
+        previousBtn =view.findViewById(R.id.previousBtn);
+        nextBtn =view.findViewById(R.id.nextDayBtn);
+        dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         main2Activity = new Main2Activity();
+        dateFormat = new SimpleDateFormat("E_d_M_y",Locale.ENGLISH);
+        customAdapter = new CustomAdapter2(getContext(),this);
         tv1.setText(main2Activity.day);
-
-            customAdapter = new CustomAdapter2(getActivity());
-            lv.setAdapter(customAdapter);
-
+        lv.setAdapter(customAdapter);
+        displayTotalMicroNutrients(main2Activity.day);
 
 
 
-         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-         displayTotalMicroNutrients(dailyDbHelper.loadHandler5(dailyDbHelper.day));
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             public boolean onItemLongClick(AdapterView<?> arg0, View v,
                                            int index, long arg3) {
-
-                TextView tev = v.findViewById(R.id.buttondel);
-                if(tev.getVisibility()==View.INVISIBLE) {
-                    tev.setVisibility(View.VISIBLE);
-                }else if(tev.getVisibility()==View.VISIBLE) {
-                    tev.setVisibility(View.INVISIBLE);
-                }
+                appearButtons(v);
                 return false;
             }
         });
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
 
-
-
-        Button previousBtn =getView().findViewById(R.id.previousBtn);
         previousBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -110,7 +101,7 @@ public class TodayFoodFragment extends Fragment {
             }
         });
 
-        Button nextBtn =getView().findViewById(R.id.nextDayBtn);
+
         nextBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -122,12 +113,53 @@ public class TodayFoodFragment extends Fragment {
             }
         });
 
-
+        return view;
     }
 
 
-    public void displayTotalMicroNutrients(Food food) {
-         tv =getView().findViewById(R.id.textView10);
+
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        if (visible) {
+            tv1.getText().toString();
+            displayTotalMicroNutrients(tv1.getText().toString());
+         }
+        super.setMenuVisibility(visible);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+       // dailyDbHelper = new DailyDbHelper(getContext(), null, null, 1);
+        ArrayList<Food> foodlist= dailyDbHelper.loadHandler2(tv1.getText().toString());
+        customAdapter = new CustomAdapter2(getContext(),foodlist,this);
+        lv.setAdapter(customAdapter);
+        displayTotalMicroNutrients(tv1.getText().toString());
+
+    }
+
+    private void appearButtons(View v) {
+        tev = v.findViewById(R.id.buttondel);
+        if(tev.getVisibility()==View.GONE) {
+            tev.setVisibility(View.VISIBLE);
+        }else if(tev.getVisibility()==View.VISIBLE) {
+            tev.setVisibility(View.GONE);
+        }
+    }
+
+    public void displayTotalMicroNutrients() {
+        //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
+        food = dailyDbHelper.loadHandler5(dailyDbHelper.day);
+
+        tv.setText("               Today You have consumed: \n"+
+                "kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr, ");
+        MainActivityFragment.newdisplayMicroNutrients(food);
+    }
+
+    public void displayTotalMicroNutrients(String day) {
+        //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
+        food = dailyDbHelper.loadHandler5(day);
 
         tv.setText("               Today You have consumed: \n"+
                 "kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr, ");
@@ -140,47 +172,37 @@ public class TodayFoodFragment extends Fragment {
     }
 
     private String getYesterdayDateString() {
-        DateFormat dateFormat = new SimpleDateFormat("E_d_M_y", Locale.ENGLISH);
+       // DateFormat dateFormat = new SimpleDateFormat("E_d_M_y", Locale.ENGLISH);
         return dateFormat.format(yesterday(i).getTime());
     }
 
     public void showYesterdayFoods(String date) {
-
-        dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
+        //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         foodList = dailyDbHelper.loadYesterdayHandler2(date);
-
-        lv =getView().findViewById(R.id.listview1);
-
         customAdapter = new CustomAdapter2(getActivity(), foodList);
         lv.setAdapter(customAdapter);
-
-        TextView tv1 =getView().findViewById(R.id.textView9);
         tv1.setText(getYesterdayDateString());
-        displayTotalMicroNutrients(dailyDbHelper.loadHandler5(date));
+        displayTotalMicroNutrients(date);
     }
 
     private String getNextDateString(int i) {
         cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -i);
-        DateFormat dateFormat = new SimpleDateFormat("E_d_M_y",Locale.ENGLISH
-        );
+      //  dateFormat = new SimpleDateFormat("E_d_M_y",Locale.ENGLISH);
         return dateFormat.format(cal.getTime());
 
     }
 
     public void showNextDayFoods(String nextDay) {
 
-        dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        final ArrayList<Food> foodList = dailyDbHelper.loadNextDayHandler(nextDay);
-        lv = getView().findViewById(R.id.listview1);
-
+        //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
+        foodList = dailyDbHelper.loadNextDayHandler(nextDay);
         customAdapter = new CustomAdapter2(getActivity(),foodList);
         lv.setAdapter(customAdapter);
-
-        TextView tv1 = getView().findViewById(R.id.textView9);
         tv1.setText(getNextDateString(i));
-        displayTotalMicroNutrients(dailyDbHelper.loadHandler5(nextDay));
-
-
+        displayTotalMicroNutrients(nextDay);
     }
+
+
+
 }

@@ -120,6 +120,27 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.close();
         return foodList;
     }
+    public ArrayList<Food> loadHandler2(String Date) {
+        ArrayList<Food> foodList = new ArrayList<>();
+        String query = "Select * FROM " + Date;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        while (cursor.moveToNext()) {
+            int result_0 = cursor.getInt(0);
+            String result_1 = cursor.getString(1);
+            int result_2 = cursor.getInt(2);
+            int result_3 = cursor.getInt(3);
+            int result_4 = cursor.getInt(4);
+            int result_5 = cursor.getInt(5);
+            int result_6 = cursor.getInt(6);
+
+            Food food = new Food(result_0,result_1,result_2,result_3,result_4,result_5,result_6);
+            foodList.add(food);
+        }
+        cursor.close();
+        db.close();
+        return foodList;
+    }
 
     public ArrayList<String> loadHandler3() {
         String result = "";
@@ -319,13 +340,13 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
 
     public void makeTable(String day,DailyDbHelper dailyDbHelper){
         String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS"+" "+ day + "("
-                + dailyDbHelper.COLUMN_ID +" "+ "INTEGER PRIMARY KEY ,"
-                + dailyDbHelper.COLUMN_NAME1 +" "+"TEXT,"
-                + dailyDbHelper.COLUMN_NAME2 +" "+ "INTEGER,"
-                + dailyDbHelper.COLUMN_NAME3 +" "+ "INTEGER,"
-                + dailyDbHelper.COLUMN_NAME4 +" "+ "INTEGER,"
-                + dailyDbHelper.COLUMN_NAME5 +" "+ "INTEGER,"
-                + dailyDbHelper.COLUMN_NAME6 +" "+ "INTEGER)";
+                + COLUMN_ID +" "+ "INTEGER PRIMARY KEY ,"
+                + COLUMN_NAME1 +" "+"TEXT,"
+                + COLUMN_NAME2 +" "+ "INTEGER,"
+                + COLUMN_NAME3 +" "+ "INTEGER,"
+                + COLUMN_NAME4 +" "+ "INTEGER,"
+                + COLUMN_NAME5 +" "+ "INTEGER,"
+                + COLUMN_NAME6 +" "+ "INTEGER)";
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(CREATE_TABLE);
     }

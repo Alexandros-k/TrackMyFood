@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 /**
@@ -21,37 +21,64 @@ import java.util.ArrayList;
 
 public class CustomAdapter2 extends BaseAdapter {
     ArrayList<Food> foodList;
-    ArrayList<Food> foodList2;
     ArrayList<DataProviderToCustomAdapter> dpList;
     DailyDbHelper dailyDbHelper;
-    MyDBHandler dbHandler;
     DataProviderToCustomAdapter dp;
+    TodayFoodFragment todayFood;
 
 
-    public CustomAdapter2(Context context) {
+    public CustomAdapter2(Context context,TodayFoodFragment tf) {
+        todayFood=tf;
         dailyDbHelper = new DailyDbHelper(context, null, null, 1);
         foodList = dailyDbHelper.loadHandler2();
         dpList = new ArrayList<>();
 
 
-            for (int i = 0; i < foodList.size(); i++)
-            {
-                dp = new DataProviderToCustomAdapter(
-                        foodList.get(i).getID(),
-                        foodList.get(i).getName(),
-                        foodList.get(i).getGram(),
-                        foodList.get(i).getKcal(),
-                        foodList.get(i).getProtein(),
-                        foodList.get(i).getCarbs(),
-                        foodList.get(i).getFats()
+        for (int i = 0; i < foodList.size(); i++)
+        {
+            dp = new DataProviderToCustomAdapter(
+                    foodList.get(i).getID(),
+                    foodList.get(i).getName(),
+                    foodList.get(i).getGram(),
+                    foodList.get(i).getKcal(),
+                    foodList.get(i).getProtein(),
+                    foodList.get(i).getCarbs(),
+                    foodList.get(i).getFats()
 
-                );
-                dpList.add(dp);
-            }
+            );
+            dpList.add(dp);
+        }
 
     }
 
+
+
     public CustomAdapter2(Context context,ArrayList<Food> foodList1) {
+        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
+        foodList = foodList1;
+        dpList = new ArrayList<>();
+
+
+        for (int i = 0; i < foodList.size(); i++)
+        {
+            dp = new DataProviderToCustomAdapter(
+                    foodList.get(i).getID(),
+                    foodList.get(i).getName(),
+                    foodList.get(i).getGram(),
+                    foodList.get(i).getKcal(),
+                    foodList.get(i).getProtein(),
+                    foodList.get(i).getCarbs(),
+                    foodList.get(i).getFats()
+
+            );
+            dpList.add(dp);
+        }
+
+    }
+
+
+    public CustomAdapter2(Context context,ArrayList<Food> foodList1,TodayFoodFragment tf) {
+        todayFood=tf;
         dailyDbHelper = new DailyDbHelper(context, null, null, 1);
         foodList = foodList1;
         dpList = new ArrayList<>();
@@ -110,8 +137,7 @@ public class CustomAdapter2 extends BaseAdapter {
 
         foodId.setText("ID: "+String.valueOf(dpList.get(position).getID()));
         foodName.setText(String.valueOf(dpList.get(position).getName()));
-        foodKcal.setText(String.valueOf(dpList.get(position).getKcal())+" gr"
-        );
+        foodKcal.setText(String.valueOf(dpList.get(position).getKcal())+" gr");
         foodGram.setText(String.valueOf(dpList.get(position).getGram()));
         foodProtein.setText(String.valueOf(dpList.get(position).getProtein()+" gr"));
         foodCarbs.setText(String.valueOf(dpList.get(position).getCarbs())+" gr");
@@ -129,13 +155,12 @@ public class CustomAdapter2 extends BaseAdapter {
 
                 dpList.remove(position);
 
-                notifyDataSetChanged();
+                todayFood.displayTotalMicroNutrients();
 
+                notifyDataSetChanged();
 
             }
         });
-
-
 
         return view;
     }

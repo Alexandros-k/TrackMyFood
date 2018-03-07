@@ -2,6 +2,7 @@ package com.example.alex.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,9 @@ import static android.support.v4.content.ContextCompat.startActivity;
 
 public class CustomAdapter3 extends BaseAdapter {
     ArrayList<Food> foodList;
-
     ArrayList<DataProviderToCustomAdapter> dpList;
-
     MyDBHandler dbHandler;
     DataProviderToCustomAdapter dp;
-    CustomAdapter2 ca;
     DailyDbHelper dailyDbHelper;
 
     public CustomAdapter3(Context context) {
@@ -102,6 +100,7 @@ public class CustomAdapter3 extends BaseAdapter {
                     dbHandler.deleteHandler3(i);
 
                 dpList.remove(position);
+
                 notifyDataSetChanged();
 
             }
@@ -118,11 +117,6 @@ public class CustomAdapter3 extends BaseAdapter {
                 startActivity(v.getContext(),in,null);
             }
         });
-
-
-
-
-
 
 
         return view;

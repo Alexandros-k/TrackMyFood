@@ -16,7 +16,7 @@ MyDBHandler dbHandler;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_food);
-        ListView lv = (ListView) findViewById(R.id.lv2);
+        ListView lv = findViewById(R.id.lv2);
         CustomAdapter3 customAdapter = new CustomAdapter3(getApplicationContext());
         lv.setAdapter(customAdapter);
 
@@ -30,7 +30,7 @@ MyDBHandler dbHandler;
 
         dbHandler = new MyDBHandler(this, null, null, 1);
         final ArrayList<Food> foodList = dbHandler.loadHandler2();
-        ListView lv = (ListView) findViewById(R.id.lv2);
+        ListView lv = findViewById(R.id.lv2);
 
         final CustomAdapter customAdapter = new CustomAdapter(this, R.layout.custom_adapter_layout);
         lv.setAdapter(customAdapter);
