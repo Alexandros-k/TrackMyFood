@@ -26,7 +26,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
     String day = dateFormatter.format(now);
    // String yesterday = getYesterdayDateString();
     //String nextDay=getNextDateString();
-    CustomAdapter customAdapter;
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dailyFoodDB.db";
     public  final String TABLE_NAME = day;
@@ -266,26 +266,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
     }
 
 
-    public boolean deleteHandler(String name) {
-        boolean result = false;
-        String query = "delete FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME1 + "= '" + name + "'";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        Food food = new Food();
-        if (cursor.moveToFirst()) {
-            food.setName(cursor.getString(0));
-            db.delete(TABLE_NAME, COLUMN_NAME1 + "=?",
-                    new String[] {
-                            String.valueOf(food.getName())
-                    });
-            cursor.close();
-            result = true;
-        }
-        db.close();
-        customAdapter.notifyDataSetChanged();
 
-        return result;
-    }
 
     public boolean deleteHandler2(Integer id) {
         boolean result = false;
