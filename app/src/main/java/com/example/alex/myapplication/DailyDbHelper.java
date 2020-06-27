@@ -46,9 +46,8 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
     //initialize the database
     public DailyDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory , DATABASE_VERSION);
-
-
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS"+" "+ TABLE_NAME + "("
@@ -60,13 +59,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
                 + COLUMN_NAME5 +" "+ "INTEGER,"
                 + COLUMN_NAME6 +" "+ "INTEGER)";
         db.execSQL(CREATE_TABLE);
-
-
-
     }
-
-
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {}
@@ -92,7 +85,6 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
                     String.valueOf(result_5) + " " +
                     String.valueOf(result_6) + " " +
                     System.getProperty("line.separator");
-
         }
         cursor.close();
         db.close();
@@ -205,11 +197,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
             prot +=result_4;
             carbs +=result_5;
             fats +=result_6;
- food = new Food(kcal,gram,prot,carbs,fats);
-
-
-
-
+            food = new Food(kcal,gram,prot,carbs,fats);
         }
         cursor.close();
         db.close();
@@ -238,11 +226,10 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
             cursor.moveToFirst();
             //  food.setID(Integer.parseInt(cursor.getString(0)));
             food.setName(cursor.getString(1));
-
             cursor.close();
-        } else {
+            } else {
             food = null;
-        }
+            }
         db.close();
         return food;
     }
@@ -308,16 +295,8 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues args = new ContentValues();
         args.put(COLUMN_ID, ID);
-
-
-
         return db.update(TABLE_NAME, args, COLUMN_ID + "=" + ID, null) > 0;
-
-
     }
-
-
-
 
     public void makeTable(String day,DailyDbHelper dailyDbHelper){
         String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS"+" "+ day + "("
@@ -331,10 +310,6 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(CREATE_TABLE);
     }
-
-
-
-
 
     public ArrayList<Food> loadYesterdayHandler2(String date) {
 
@@ -358,7 +333,6 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
             cursor.close();
             db.close();
         return foodList;
-
     }
 
     public ArrayList<Food> loadNextDayHandler(String nextDay) {

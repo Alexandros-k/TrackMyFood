@@ -17,7 +17,7 @@ import android.widget.TextView;
  * Created by Alex on 2/14/2018.
  */
 
-public class AllFoodFragment extends Fragment {
+public class AllFoodFragment extends Fragment  {
 
     private static final String TAG = "AllFoodFragment";
 
@@ -38,14 +38,22 @@ public class AllFoodFragment extends Fragment {
     }
 
 
-    public AllFoodFragment() {
-
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_all_food,container,false);
+        View view = inflater.inflate(R.layout.fragment_all_food,container,false);
+
+
+        return view;
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        View view = getView();
 
         lv = view.findViewById(R.id.lv2);
         customAdapter = new CustomAdapter3(getContext());
@@ -70,16 +78,7 @@ public class AllFoodFragment extends Fragment {
                 return false;
             }
         });
-        return view;
-    }
 
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        customAdapter = new CustomAdapter3(getContext());
-        lv.setAdapter(customAdapter);
     }
 
 

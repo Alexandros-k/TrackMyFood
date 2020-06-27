@@ -1,5 +1,6 @@
 package com.example.alex.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -32,14 +32,15 @@ public class TodayFoodFragment extends Fragment {
     ArrayList<Food> foodList;
     int i=0;
     Calendar cal;
-    TextView tv1;
-    Main2Activity main2Activity;
+     static TextView tv1;
+    MainActivity mainActivity;
     TextView tv;
     Food food;
     DateFormat dateFormat;
     TextView tev;
     Button previousBtn;
     Button nextBtn;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,12 @@ public class TodayFoodFragment extends Fragment {
 
     }
 
+
+    public interface Listener{
+         void updateTest(String day);
+    }
+
+    private Listener mListener;
 
 
 
@@ -58,11 +65,30 @@ public class TodayFoodFragment extends Fragment {
         return todayFoodFragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Listener) {
+            mListener = (Listener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement Listener");
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_today_food,container,false);
+        View view = inflater.inflate(R.layout.fragment_today_food,container,false);
+
+        return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        View view = getView();
         lv = view.findViewById(R.id.listview1);
         tv1 = view.findViewById(R.id.textView9);
         tv = view.findViewById(R.id.textView10);
@@ -70,12 +96,13 @@ public class TodayFoodFragment extends Fragment {
         previousBtn =view.findViewById(R.id.previousBtn);
         nextBtn =view.findViewById(R.id.nextDayBtn);
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        main2Activity = new Main2Activity();
+        mainActivity = new MainActivity();
         dateFormat = new SimpleDateFormat("E_d_M_y",Locale.ENGLISH);
         customAdapter = new CustomAdapter2(getContext(),this);
-        tv1.setText(main2Activity.day);
+        tv1.setText(mainActivity.day);
+
         lv.setAdapter(customAdapter);
-        displayTotalMicroNutrients(main2Activity.day);
+        displayTotalMicroNutrients(mainActivity.day);
 
 
 
@@ -97,7 +124,11 @@ public class TodayFoodFragment extends Fragment {
                 yesterday(i);
                 if(dailyDbHelper.tableExists(getYesterdayDateString())) {
                     showYesterdayFoods(getYesterdayDateString());
+                    MainActivityFragment.update(getYesterdayDateString());
+                   // mListener.updateTest(getYesterdayDateString());
                 }else{i--;}
+
+
             }
         });
 
@@ -109,15 +140,14 @@ public class TodayFoodFragment extends Fragment {
                 i--;
                 if(dailyDbHelper.tableExists(getYesterdayDateString())) {
                     showNextDayFoods(getNextDateString(i));
+                   // MainActivityFragment.update(getNextDateString(i));
+                    //mListener.update(getNextDateString(i));
                 }else{i++;}
             }
         });
 
-        return view;
+
     }
-
-
-
 
     @Override
     public void setMenuVisibility(final boolean visible) {
@@ -159,10 +189,13 @@ public class TodayFoodFragment extends Fragment {
 
     public void displayTotalMicroNutrients(String day) {
         //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
+        MainActivityFragment.update(day);
+        //mListener.updateTest(day);
         food = dailyDbHelper.loadHandler5(day);
 
         tv.setText("               Today You have consumed: \n"+
                 "kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr, ");
+        MainActivityFragment.newdisplayMicroNutrients(food);
     }
 
     private Calendar yesterday(int i) {
@@ -202,6 +235,15 @@ public class TodayFoodFragment extends Fragment {
         tv1.setText(getNextDateString(i));
         displayTotalMicroNutrients(nextDay);
     }
+
+
+    public  void test(String day) {
+        tv1.setText(day);
+
+
+    }
+
+
 
 
 

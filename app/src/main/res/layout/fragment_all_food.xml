@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundpic"
-    tools:context="com.example.alex.myapplication.AllFood">
+    android:background="@color/modernTheme"
+    tools:context="com.example.alex.myapplication.AllFoodFragment">
 
     <ListView
         android:id="@+id/lv2"
@@ -21,7 +21,7 @@
         android:id="@+id/textView11"
         android:layout_width="0dp"
         android:layout_height="31dp"
-
+        android:textColor="@color/colorText"
         android:layout_marginTop="8dp"
 
         android:text="       name       Kcal      Gram    Protein  Carbs  Fats "

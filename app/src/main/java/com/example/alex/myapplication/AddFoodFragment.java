@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +31,7 @@ public class AddFoodFragment extends Fragment {
     SimpleDateFormat dateFormatter;
 
     private static final String TAG="AddFoodFragment";
-    public AddFoodFragment() {
-    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,21 +42,23 @@ public class AddFoodFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_add_food,container,false);
+        View view = inflater.inflate(R.layout.fragment_addfood,container,false);
 
         return view;
     }
 
+
+
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onStart() {
+        super.onStart();
+        View view= getView();
+        foodName = view.findViewById(R.id.addFoodNameId);
+        foodGram = view.findViewById(R.id.addGramFoodId);
 
-        foodName = getView().findViewById(R.id.addFoodNameId);
-        foodGram = getView().findViewById(R.id.addGramFoodId);
 
 
-
-        Button mButton1 = getView().findViewById(R.id.addFoodId);
+        Button mButton1 = view.findViewById(R.id.addFoodId);
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +70,7 @@ public class AddFoodFragment extends Fragment {
 
     }
 
-    public void addFood(String name,int gram){
+    public void addFood(String name, int gram){
 
         Date now = new Date();
         DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y");
@@ -105,7 +104,7 @@ public class AddFoodFragment extends Fragment {
             Toast.makeText(getContext(), "Food saved!",
                     Toast.LENGTH_LONG).show();
 
-            startActivity(new Intent(getContext(), Main2Activity.class));
+            startActivity(new Intent(getContext(), MainActivity.class));
 
         }
 

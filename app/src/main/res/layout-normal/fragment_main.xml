@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundpic"
-    tools:context="com.example.alex.myapplication.MainActivity">
+    android:background="@color/modernTheme"
+    tools:context="com.example.alex.myapplication.MainActivityFragment">
+
 
     <TextView
         android:id="@+id/textView2"
@@ -13,30 +14,16 @@
         android:layout_height="0dp"
         android:layout_marginEnd="130dp"
         android:layout_marginStart="131dp"
+        android:textColor="@color/colorText"
         android:text="TextView"
         android:textStyle="bold"
-        app:layout_constraintVertical_weight="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
-        app:layout_constraintVertical_bias="0.517" />
+        app:layout_constraintVertical_bias="0.517"
+        app:layout_constraintVertical_weight="1" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="134dp"
-        android:layout_marginStart="135dp"
-        android:text="@string/track_my_food"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="40sp"
-        app:layout_constraintVertical_weight="2"
-        app:layout_constraintBottom_toTopOf="@+id/textView12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
         android:id="@+id/textView11"
@@ -44,29 +31,47 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="130dp"
         android:layout_marginStart="131dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@color/colorText"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/barChart" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="216dp"
-        android:layout_marginStart="216dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        android:textColor="@color/colorText"
+        app:layout_constraintBottom_toTopOf="@+id/barChart"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="304dp"
+        android:layout_height="170dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+    </com.github.mikephil.charting.charts.BarChart>
 
 
 </android.support.constraint.ConstraintLayout>

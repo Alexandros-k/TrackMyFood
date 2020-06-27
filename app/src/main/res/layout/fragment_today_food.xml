@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundpic"
-    tools:context="com.example.alex.myapplication.TodayFood">
+    android:background="@color/modernTheme"
+    tools:context="com.example.alex.myapplication.TodayFoodFragment">
 
     <TextView
         android:id="@+id/textView9"

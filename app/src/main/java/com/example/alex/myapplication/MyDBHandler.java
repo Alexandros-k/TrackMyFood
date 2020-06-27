@@ -54,6 +54,7 @@ import java.util.ArrayList;
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {}
+
         public String loadHandler() {
             String result = "";
             String query = "Select*FROM"+" " + TABLE_NAME;
