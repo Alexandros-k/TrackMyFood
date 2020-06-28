@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -72,7 +71,7 @@ public class PopUp extends AppCompatActivity {
 
           Food  f1 =  calculateMn(food.getName(),graml,fg,kc,p,c,f);
 
-            dailyDbHelper.addHandler(f1);
+            dailyDbHelper.addTodayFoodHandler(f1);
 
 
        CustomAdapter3 ca3= new CustomAdapter3(getApplicationContext());

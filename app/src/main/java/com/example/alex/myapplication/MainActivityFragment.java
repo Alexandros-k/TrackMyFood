@@ -73,7 +73,7 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
 
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         day = dailyDbHelper.day;
-        food = dailyDbHelper.loadHandler5(day);
+        food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
 
 
 
@@ -105,7 +105,7 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
         tv1.setText(day);
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         day = dailyDbHelper.day;
-        food = dailyDbHelper.loadHandler5(day);
+        food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
 
         barEntries= new ArrayList<>();
         barEntries.add(new BarEntry(((float) food.getKcal()),0));
@@ -201,7 +201,7 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
 
     //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
 
-    food = dailyDbHelper.loadHandler5(day);
+    food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
 
     barEntries= new ArrayList<>();
     barEntries.add(new BarEntry(((float) food.getKcal()),0));

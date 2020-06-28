@@ -122,11 +122,11 @@ public class TodayFoodFragment extends Fragment {
             public void onClick(View v) {
                 i++;
                 yesterday(i);
-                if(dailyDbHelper.tableExists(getYesterdayDateString())) {
+               // if(dailyDbHelper.tableExists(getYesterdayDateString())) {
                     showYesterdayFoods(getYesterdayDateString());
                     MainActivityFragment.update(getYesterdayDateString());
                    // mListener.updateTest(getYesterdayDateString());
-                }else{i--;}
+              //  }else{i--;}
 
 
             }
@@ -138,11 +138,11 @@ public class TodayFoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 i--;
-                if(dailyDbHelper.tableExists(getYesterdayDateString())) {
+              //  if(dailyDbHelper.tableExists(getYesterdayDateString())) {
                     showNextDayFoods(getNextDateString(i));
                    // MainActivityFragment.update(getNextDateString(i));
                     //mListener.update(getNextDateString(i));
-                }else{i++;}
+               // }else{i++;}
             }
         });
 
@@ -162,7 +162,7 @@ public class TodayFoodFragment extends Fragment {
     public void onResume() {
         super.onResume();
        // dailyDbHelper = new DailyDbHelper(getContext(), null, null, 1);
-        ArrayList<Food> foodlist= dailyDbHelper.loadHandler2(tv1.getText().toString());
+        ArrayList<Food> foodlist= dailyDbHelper.loadTodaysFoodMainPanelHandler(tv1.getText().toString());
         customAdapter = new CustomAdapter2(getContext(),foodlist,this);
         lv.setAdapter(customAdapter);
         displayTotalMicroNutrients(tv1.getText().toString());
@@ -180,7 +180,7 @@ public class TodayFoodFragment extends Fragment {
 
     public void displayTotalMicroNutrients() {
         //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        food = dailyDbHelper.loadHandler5(dailyDbHelper.day);
+        food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(dailyDbHelper.day);
 
         tv.setText("               Today You have consumed: \n"+
                 "kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr, ");
@@ -191,7 +191,7 @@ public class TodayFoodFragment extends Fragment {
         //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         MainActivityFragment.update(day);
         //mListener.updateTest(day);
-        food = dailyDbHelper.loadHandler5(day);
+        food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
 
         tv.setText("               Today You have consumed: \n"+
                 "kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr, ");
@@ -205,13 +205,13 @@ public class TodayFoodFragment extends Fragment {
     }
 
     private String getYesterdayDateString() {
-       // DateFormat dateFormat = new SimpleDateFormat("E_d_M_y", Locale.ENGLISH);
-        return dateFormat.format(yesterday(i).getTime());
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        return dateFormatter.format(yesterday(i).getTime());
     }
 
     public void showYesterdayFoods(String date) {
         //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        foodList = dailyDbHelper.loadYesterdayHandler2(date);
+        foodList = dailyDbHelper.loadYesterdaysFoodHandler(date);
         customAdapter = new CustomAdapter2(getActivity(), foodList);
         lv.setAdapter(customAdapter);
         tv1.setText(getYesterdayDateString());
@@ -221,15 +221,15 @@ public class TodayFoodFragment extends Fragment {
     private String getNextDateString(int i) {
         cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -i);
-      //  dateFormat = new SimpleDateFormat("E_d_M_y",Locale.ENGLISH);
-        return dateFormat.format(cal.getTime());
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        return dateFormatter.format(cal.getTime());
 
     }
 
     public void showNextDayFoods(String nextDay) {
 
         //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        foodList = dailyDbHelper.loadNextDayHandler(nextDay);
+        foodList = dailyDbHelper.loadNextDaysFoodHandler(nextDay);
         customAdapter = new CustomAdapter2(getActivity(),foodList);
         lv.setAdapter(customAdapter);
         tv1.setText(getNextDateString(i));

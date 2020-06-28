@@ -58,7 +58,7 @@ dayOfMonth1= dayOfMonth;
         newDay = dateFormatter.format(date);
        DailyDbHelper dailyDbHelper = new DailyDbHelper(getApplicationContext(), null, null, 1);
 
-        Food food = dailyDbHelper.loadHandler5(newDay);
+        Food food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(newDay);
 
         Bundle bundle = new Bundle();
         int daof =dayOfMonth1 ;

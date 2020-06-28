@@ -1,18 +1,14 @@
 package com.example.alex.myapplication;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -30,7 +26,7 @@ public class CustomAdapter2 extends BaseAdapter {
     public CustomAdapter2(Context context,TodayFoodFragment tf) {
         todayFood=tf;
         dailyDbHelper = new DailyDbHelper(context, null, null, 1);
-        foodList = dailyDbHelper.loadHandler2();
+        foodList = dailyDbHelper.loadTodaysFoodMainPanelHandler();
         dpList = new ArrayList<>();
 
 
@@ -149,9 +145,9 @@ public class CustomAdapter2 extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                    final ArrayList<Food> foodList = dailyDbHelper.loadHandler2();
+                    final ArrayList<Food> foodList = dailyDbHelper.loadTodaysFoodMainPanelHandler();
                     int i = foodList.get(position).getID();
-                    dailyDbHelper.deleteHandler3(i);
+                    dailyDbHelper.deleteFoodHandler(i);
 
                 dpList.remove(position);
 
