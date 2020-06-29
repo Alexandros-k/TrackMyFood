@@ -83,13 +83,14 @@ public class TodayFoodFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        View view = getView();
+        final View view = getView();
         lv = view.findViewById(R.id.listview1);
         tv1 = view.findViewById(R.id.textView9);
         tv = view.findViewById(R.id.textView10);
         tev = view.findViewById(R.id.buttondel);
         previousBtn =view.findViewById(R.id.previousBtn);
         nextBtn =view.findViewById(R.id.nextDayBtn);
+        nextBtn.setVisibility(View.INVISIBLE);
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         mainActivity = new MainActivity();
         customAdapter = new CustomAdapter2(getContext(),this);
@@ -114,23 +115,27 @@ public class TodayFoodFragment extends Fragment {
                 counter++;
                 yesterday(counter);
                // if(dailyDbHelper.tableExists(getYesterdayDateString())) {
+                    nextBtn.setVisibility(View.VISIBLE);
                     showYesterdayFoods(getYesterdayDateString());
                     MainActivityFragment.update(getYesterdayDateString());
                    // mListener.updateTest(getYesterdayDateString());
               //  }else{i--;}
-
-
             }
         });
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!getNextDateString(counter).equals(day)) {
+                if(getNextDateString(counter-1).equals(day)){
+                    nextBtn.setVisibility(View.INVISIBLE);
                     counter--;
                     showNextDayFoods(getNextDateString(counter));
                     displayTotalMicroNutrients(getNextDateString(counter));
-               }
+                }else if(!getNextDateString(counter).equals(day)) {
+                    counter--;
+                    showNextDayFoods(getNextDateString(counter));
+                    displayTotalMicroNutrients(getNextDateString(counter));
+                }
             }
         });
     }
