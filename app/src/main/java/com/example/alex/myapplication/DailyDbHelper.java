@@ -122,7 +122,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         int carbs=0;
         int fats=0;
         Food food= new Food();
-        String query = "Select * FROM " + TABLE_NAME+ " where Date = '"+day+"'";
+        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+date+"'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -181,7 +181,6 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         return foodList;
     }
     public ArrayList<Food> loadNextDaysFoodHandler(String nextDay) {
-
         ArrayList<Food> foodList = new ArrayList<>();
         String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+nextDay+"'";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -201,7 +200,22 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.close();
         return foodList;
     }
-    boolean tableExists( String tableName){
+    public Boolean hasFood(String Date) {
+        Boolean flag = false;
+        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+day+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        while (cursor.moveToNext()) {
+            int result_0 = cursor.getInt(0);
+            if(result_0>1){
+                flag = true;
+            }
+        }
+        cursor.close();
+        db.close();
+        return flag;
+    }
+ /*   boolean tableExists( String tableName){
         SQLiteDatabase db = this.getWritableDatabase();
         if (tableName == null || db == null || !db.isOpen())
         {
@@ -216,8 +230,8 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         int count = cursor.getInt(0);
         cursor.close();
         return count > 0;
-    }
-    public void makeTable(String day,DailyDbHelper dailyDbHelper){
+    }*/
+ /*   public void makeTable(String day,DailyDbHelper dailyDbHelper){
         String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS"+" "+ day + "("
                 + COLUMN_ID +" "+ "INTEGER PRIMARY KEY ,"
                 + COLUMN_NAME1 +" "+"TEXT,"
@@ -228,5 +242,5 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
                 + COLUMN_NAME6 +" "+ "INTEGER)";
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(CREATE_TABLE);
-    }
+    }*/
 }

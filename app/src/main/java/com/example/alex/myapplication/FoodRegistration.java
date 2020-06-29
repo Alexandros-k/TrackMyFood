@@ -15,15 +15,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FoodRegistration extends AppCompatActivity {
-    EditText foodName ;
-    EditText foodKcal ;
-    EditText foodGram ;
-    EditText foodProtein ;
+    EditText foodName;
+    EditText foodKcal;
+    EditText foodGram;
+    EditText foodProtein;
     EditText foodCarbs;
-    EditText foodFats ;
+    EditText foodFats;
     TextView textView;
     String name;
-
     ViewPager mViewPager;
     Button mButton;
 
@@ -40,11 +39,8 @@ public class FoodRegistration extends AppCompatActivity {
         textView = findViewById(R.id.textView8);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
       /*  Bundle extras = getIntent().getExtras();
         if (extras != null) {
              name = extras.getString("Name");
@@ -54,46 +50,36 @@ public class FoodRegistration extends AppCompatActivity {
             foodGram.setText(String.valueOf(gram));
         }*/
         Button SaveFoodBtn = findViewById(R.id.SaveFoodId);
-
-
         SaveFoodBtn.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-
                         addFood(view);
-                       // addFoodToday(name);
-                       Toast.makeText(FoodRegistration.this, "Food saved!",
+                        // addFoodToday(name);
+                        Toast.makeText(FoodRegistration.this, "Food saved!",
                                 Toast.LENGTH_LONG).show();
-                                finish();
+                        finish();
 
                     }
 
 
                 });
-
-
     }
 
     private void addFoodToday(String name) {
-
         DailyDbHelper dailyDbHelper = new DailyDbHelper(this, null, null, 1);
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         if (dailyDbHelper == null) {
-
             Date now = new Date();
-        DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y");
-        String day = dateFormatter.format(now);
-            dailyDbHelper.makeTable(day, dailyDbHelper);
+            DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y");
+            String day = dateFormatter.format(now);
+           // dailyDbHelper.makeTable(day, dailyDbHelper);
         }
-
-         Food f1 = dbHandler.findHandler(name);
-
-            dailyDbHelper.addTodayFoodHandler(f1);
-
+        Food f1 = dbHandler.findHandler(name);
+        dailyDbHelper.addTodayFoodHandler(f1);
     }
 
     public void addFood(View view) {
-       MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         //int id = Integer.parseInt(foodid.getText().toString());
         String name = foodName.getText().toString();
         int kcal = Integer.parseInt(foodKcal.getText().toString());
@@ -101,9 +87,8 @@ public class FoodRegistration extends AppCompatActivity {
         int protein = Integer.parseInt(foodProtein.getText().toString());
         int carbs = Integer.parseInt(foodCarbs.getText().toString());
         int fats = Integer.parseInt(foodFats.getText().toString());
-        Food food = new Food( name,kcal,gram,protein,carbs,fats);
+        Food food = new Food(name, kcal, gram, protein, carbs, fats);
         dbHandler.addHandler(food);
-
     }
 
     public void loadFoods(View view) {
@@ -115,7 +100,6 @@ public class FoodRegistration extends AppCompatActivity {
         foodProtein.setText("");
         foodCarbs.setText("");
         foodFats.setText("");
-
     }
 
     @Override
@@ -123,8 +107,4 @@ public class FoodRegistration extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
-
-
-
 }

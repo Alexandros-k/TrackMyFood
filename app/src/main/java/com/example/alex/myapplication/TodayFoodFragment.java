@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -23,39 +24,35 @@ import java.util.Locale;
  */
 
 public class TodayFoodFragment extends Fragment {
-
     private static final String TAG="TodayFoodFragment";
-
-    DailyDbHelper dailyDbHelper;
-    CustomAdapter2 customAdapter;
-    ListView lv;
-    ArrayList<Food> foodList;
-    int i=0;
-    Calendar cal;
-     static TextView tv1;
-    MainActivity mainActivity;
-    TextView tv;
-    Food food;
-    DateFormat dateFormat;
-    TextView tev;
-    Button previousBtn;
-    Button nextBtn;
+    public DailyDbHelper dailyDbHelper;
+    public CustomAdapter2 customAdapter;
+    public ListView lv;
+    public ArrayList<Food> foodList;
+    public int counter = 0;
+    public Calendar cal;
+    public static TextView tv1;
+    public MainActivity mainActivity;
+    public TextView tv;
+    public Food food;
+    public DateFormat dateFormat;
+    public TextView tev;
+    public Button previousBtn;
+    public Button nextBtn;
+    public Listener mListener;
+    public String day;
+    public Date now;
+    public DateFormat dateFormatter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-
     }
-
 
     public interface Listener{
-         void updateTest(String day);
+        void updateTest(String day);
     }
-
-    private Listener mListener;
-
-
 
     public static Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
@@ -80,10 +77,8 @@ public class TodayFoodFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_today_food,container,false);
-
         return view;
     }
-
 
     @Override
     public void onStart() {
@@ -97,15 +92,12 @@ public class TodayFoodFragment extends Fragment {
         nextBtn =view.findViewById(R.id.nextDayBtn);
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         mainActivity = new MainActivity();
-        dateFormat = new SimpleDateFormat("E_d_M_y",Locale.ENGLISH);
         customAdapter = new CustomAdapter2(getContext(),this);
-        tv1.setText(mainActivity.day);
-
+        now = new Date();
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        day = dateFormatter.format(now);
+        tv1.setText(day);
         lv.setAdapter(customAdapter);
-        displayTotalMicroNutrients(mainActivity.day);
-
-
-
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             public boolean onItemLongClick(AdapterView<?> arg0, View v,
@@ -115,13 +107,12 @@ public class TodayFoodFragment extends Fragment {
             }
         });
 
-
         previousBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                i++;
-                yesterday(i);
+                counter++;
+                yesterday(counter);
                // if(dailyDbHelper.tableExists(getYesterdayDateString())) {
                     showYesterdayFoods(getYesterdayDateString());
                     MainActivityFragment.update(getYesterdayDateString());
@@ -132,21 +123,16 @@ public class TodayFoodFragment extends Fragment {
             }
         });
 
-
         nextBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                i--;
-              //  if(dailyDbHelper.tableExists(getYesterdayDateString())) {
-                    showNextDayFoods(getNextDateString(i));
-                   // MainActivityFragment.update(getNextDateString(i));
-                    //mListener.update(getNextDateString(i));
-               // }else{i++;}
+                if(!getNextDateString(counter).equals(day)) {
+                    counter--;
+                    showNextDayFoods(getNextDateString(counter));
+                    displayTotalMicroNutrients(getNextDateString(counter));
+               }
             }
         });
-
-
     }
 
     @Override
@@ -166,7 +152,6 @@ public class TodayFoodFragment extends Fragment {
         customAdapter = new CustomAdapter2(getContext(),foodlist,this);
         lv.setAdapter(customAdapter);
         displayTotalMicroNutrients(tv1.getText().toString());
-
     }
 
     private void appearButtons(View v) {
@@ -181,7 +166,6 @@ public class TodayFoodFragment extends Fragment {
     public void displayTotalMicroNutrients() {
         //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(dailyDbHelper.day);
-
         tv.setText("               Today You have consumed: \n"+
                 "kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr, ");
         MainActivityFragment.newdisplayMicroNutrients(food);
@@ -192,7 +176,6 @@ public class TodayFoodFragment extends Fragment {
         MainActivityFragment.update(day);
         //mListener.updateTest(day);
         food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
-
         tv.setText("               Today You have consumed: \n"+
                 "kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr, ");
         MainActivityFragment.newdisplayMicroNutrients(food);
@@ -206,7 +189,7 @@ public class TodayFoodFragment extends Fragment {
 
     private String getYesterdayDateString() {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        return dateFormatter.format(yesterday(i).getTime());
+        return dateFormatter.format(yesterday(counter).getTime());
     }
 
     public void showYesterdayFoods(String date) {
@@ -223,28 +206,18 @@ public class TodayFoodFragment extends Fragment {
         cal.add(Calendar.DATE, -i);
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         return dateFormatter.format(cal.getTime());
-
     }
 
     public void showNextDayFoods(String nextDay) {
-
         //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         foodList = dailyDbHelper.loadNextDaysFoodHandler(nextDay);
         customAdapter = new CustomAdapter2(getActivity(),foodList);
         lv.setAdapter(customAdapter);
-        tv1.setText(getNextDateString(i));
+        tv1.setText(getNextDateString(counter));
         displayTotalMicroNutrients(nextDay);
     }
 
-
     public  void test(String day) {
         tv1.setText(day);
-
-
     }
-
-
-
-
-
 }

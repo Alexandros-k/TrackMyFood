@@ -91,7 +91,7 @@ public class AddFoodFragment extends Fragment {
             startActivity(intent);
         }else {
             Food foodCopy = dbHandler.findHandler(f1.getName());
-            dailyDbHelper.makeTable(day,dailyDbHelper);
+//            dailyDbHelper.makeTable(day,dailyDbHelper);
             dailyDbHelper.addTodayFoodHandler(foodCopy);
             Toast.makeText(getContext(), "Food saved!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getContext(), MainActivity.class));

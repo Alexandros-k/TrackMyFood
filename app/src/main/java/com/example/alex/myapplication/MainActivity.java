@@ -68,10 +68,9 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = findViewById(R.id.tabs);
 
         DailyDbHelper dailyDbHelper = new DailyDbHelper(this, null, null, 1);
-        if(!dailyDbHelper.tableExists(day)){
+        /*if(!dailyDbHelper.tableExists(day)){
             dailyDbHelper.makeTable(day,dailyDbHelper);
-
-        }
+        }*/
         tabLayout.setupWithViewPager(mViewPager);
     }
 
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.dailyGoal) {
             startActivity(new Intent(this,DailyGoalActivity.class));
         } else if (id == R.id.Calendar) {
-startActivity(new Intent(this,CalendarActivity.class));
+        startActivity(new Intent(this,CalendarActivity.class));
         } else if (id == R.id.info) {
 
         } else if (id == R.id.meal) {
