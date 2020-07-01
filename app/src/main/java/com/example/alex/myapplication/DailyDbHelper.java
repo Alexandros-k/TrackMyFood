@@ -26,7 +26,6 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
     String day = dateFormatter.format(now);
    // String yesterday = getYesterdayDateString();
     //String nextDay=getNextDateString();
-
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dailyFoodDB.db";
     private static final String TABLE_NAME = "todayFood";
@@ -123,7 +122,6 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         int fats=0;
         Food food= new Food();
         String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+date+"'";
-
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         while (cursor.moveToNext()) {
@@ -200,47 +198,23 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.close();
         return foodList;
     }
-    public Boolean hasFood(String Date) {
-        Boolean flag = false;
-        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+day+"'";
-        SQLiteDatabase db = this.getReadableDatabase();
+    public String getFirstRecord(){
+        String query = "Select * FROM " + TABLE_NAME+ " where "+ COLUMN_ID +" = 1";
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
+        String result_7 = null;
         while (cursor.moveToNext()) {
             int result_0 = cursor.getInt(0);
-            if(result_0>1){
-                flag = true;
-            }
+            String result_1 = cursor.getString(1);
+            int result_2 = cursor.getInt(2);
+            int result_3 = cursor.getInt(3);
+            int result_4 = cursor.getInt(4);
+            int result_5 = cursor.getInt(5);
+            int result_6 = cursor.getInt(6);
+            result_7 = cursor.getString(7);
         }
         cursor.close();
         db.close();
-        return flag;
+        return result_7;
     }
- /*   boolean tableExists( String tableName){
-        SQLiteDatabase db = this.getWritableDatabase();
-        if (tableName == null || db == null || !db.isOpen())
-        {
-            return false;
-        }
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?", new String[] {"table", tableName});
-        if (!cursor.moveToFirst())
-        {
-            cursor.close();
-            return false;
-        }
-        int count = cursor.getInt(0);
-        cursor.close();
-        return count > 0;
-    }*/
- /*   public void makeTable(String day,DailyDbHelper dailyDbHelper){
-        String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS"+" "+ day + "("
-                + COLUMN_ID +" "+ "INTEGER PRIMARY KEY ,"
-                + COLUMN_NAME1 +" "+"TEXT,"
-                + COLUMN_NAME2 +" "+ "INTEGER,"
-                + COLUMN_NAME3 +" "+ "INTEGER,"
-                + COLUMN_NAME4 +" "+ "INTEGER,"
-                + COLUMN_NAME5 +" "+ "INTEGER,"
-                + COLUMN_NAME6 +" "+ "INTEGER)";
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(CREATE_TABLE);
-    }*/
 }
