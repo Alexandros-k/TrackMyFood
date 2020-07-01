@@ -132,7 +132,7 @@ public class TodayFoodFragment extends Fragment {
                     previousBtn.setVisibility(View.VISIBLE);
                     counter--;
                     showRequestedDayFoods(geRequestedDate(counter));
-                    displayTotalMicroNutrients(geRequestedDate(counter));
+                    displayTotalMicroNutrients();
                     if (geRequestedDate(counter).equals(day)) {
                         nextBtn.setVisibility(View.INVISIBLE);
                     }
@@ -145,7 +145,7 @@ public class TodayFoodFragment extends Fragment {
     public void setMenuVisibility(final boolean visible) {
         if (visible) {
             tv1.getText().toString();
-            displayTotalMicroNutrients(tv1.getText().toString());
+            displayTotalMicroNutrients();
         }
         super.setMenuVisibility(visible);
     }
@@ -156,7 +156,7 @@ public class TodayFoodFragment extends Fragment {
         ArrayList<Food> foodlist = dailyDbHelper.loadFoodHandler(tv1.getText().toString());
         customAdapter = new CustomAdapter2(getContext(), foodlist, this);
         lv.setAdapter(customAdapter);
-        displayTotalMicroNutrients(tv1.getText().toString());
+        displayTotalMicroNutrients();
     }
 
     private void appearButtons(View v) {
@@ -168,7 +168,8 @@ public class TodayFoodFragment extends Fragment {
         }
     }
 
-    public void displayTotalMicroNutrients(String day) {
+    public void displayTotalMicroNutrients() {
+        String day = geRequestedDate(counter);
         MainActivityFragment.update(day);
         food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
         tv.setText("               Today You have consumed: \n" +
@@ -185,10 +186,10 @@ public class TodayFoodFragment extends Fragment {
 
     public void showRequestedDayFoods(String RequestedDay) {
         foodList = dailyDbHelper.loadFoodHandler(RequestedDay);
-        customAdapter = new CustomAdapter2(getActivity(), foodList);
+        customAdapter = new CustomAdapter2(getActivity(), foodList,this);
         lv.setAdapter(customAdapter);
         tv1.setText(RequestedDay);
-        displayTotalMicroNutrients(RequestedDay);
+        displayTotalMicroNutrients();
     }
 
     public void test(String day) {
