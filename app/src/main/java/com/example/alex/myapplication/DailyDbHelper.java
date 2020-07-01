@@ -118,19 +118,15 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.close();
         return food;
     }
-    public boolean deleteFoodHandler(int id) {
-        boolean result = false;
+    public void deleteFoodHandler(int id) {
         String query1 = "delete FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + "= '" + id + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query1, null);
-        Food food = new Food();
         if (cursor.moveToPosition(id)) {
             db.delete(TABLE_NAME, COLUMN_ID + "="+id+"",null);
             cursor.close();
-            result = true;
         }
         db.close();
-        return result;
     }
     public String getFirstRecord(){
         String query = "Select * FROM " + TABLE_NAME+ " where "+ COLUMN_ID +" = 1";

@@ -179,7 +179,7 @@ public class TodayFoodFragment extends Fragment {
         MainActivityFragment.newdisplayMicroNutrients(food);
     }
 //this is used to get either previous or next date
-    private String geRequestedDate(int i) {
+    public String geRequestedDate(int i) {
         cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -i);
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);

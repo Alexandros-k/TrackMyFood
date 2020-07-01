@@ -132,8 +132,9 @@ public class CustomAdapter2 extends BaseAdapter {
 
             @Override
             public void onClick(View view) {
-                int i = (int)getItemId(position);
-                dailyDbHelper.deleteFoodHandler(i+1);
+               final ArrayList<Food> foodList = dailyDbHelper.loadFoodHandler(todayFood.geRequestedDate(todayFood.counter));
+                int i = foodList.get(position).getID();
+                dailyDbHelper.deleteFoodHandler(i);
                 dpList.remove(position);
                 todayFood.displayTotalMicroNutrients();
                 notifyDataSetChanged();
