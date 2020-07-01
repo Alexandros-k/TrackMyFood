@@ -117,7 +117,7 @@ public class TodayFoodFragment extends Fragment {
                     counter++;
                     yesterday(counter);
                     nextBtn.setVisibility(View.VISIBLE);
-                    showYesterdayFoods(getYesterdayDateString());
+                    showRequestedDayFoods(getYesterdayDateString());
                     MainActivityFragment.update(getYesterdayDateString());
                     if (startingDate.equals(getYesterdayDateString())) {
                         previousBtn.setVisibility(View.INVISIBLE);
@@ -131,12 +131,12 @@ public class TodayFoodFragment extends Fragment {
                 if (getNextDateString(counter - 1).equals(day)) {
                     nextBtn.setVisibility(View.INVISIBLE);
                     counter--;
-                    showNextDayFoods(getNextDateString(counter));
+                    showRequestedDayFoods(getNextDateString(counter));
                     displayTotalMicroNutrients(getNextDateString(counter));
                 } else if (!getNextDateString(counter).equals(day)) {
                     previousBtn.setVisibility(View.VISIBLE);
                     counter--;
-                    showNextDayFoods(getNextDateString(counter));
+                    showRequestedDayFoods(getNextDateString(counter));
                     displayTotalMicroNutrients(getNextDateString(counter));
                 }
             }
@@ -189,14 +189,6 @@ public class TodayFoodFragment extends Fragment {
         return dateFormatter.format(yesterday(counter).getTime());
     }
 
-    public void showYesterdayFoods(String previousDay) {
-        foodList = dailyDbHelper.loadFoodHandler(previousDay);
-        customAdapter = new CustomAdapter2(getActivity(), foodList);
-        lv.setAdapter(customAdapter);
-        tv1.setText(getYesterdayDateString());
-        displayTotalMicroNutrients(previousDay);
-    }
-
     private String getNextDateString(int i) {
         cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -i);
@@ -204,12 +196,12 @@ public class TodayFoodFragment extends Fragment {
         return dateFormatter.format(cal.getTime());
     }
 
-    public void showNextDayFoods(String nextDay) {
-        foodList = dailyDbHelper.loadFoodHandler(nextDay);
+    public void showRequestedDayFoods(String RequestedDay) {
+        foodList = dailyDbHelper.loadFoodHandler(RequestedDay);
         customAdapter = new CustomAdapter2(getActivity(), foodList);
         lv.setAdapter(customAdapter);
-        tv1.setText(getNextDateString(counter));
-        displayTotalMicroNutrients(nextDay);
+        tv1.setText(RequestedDay);
+        displayTotalMicroNutrients(RequestedDay);
     }
 
     public void test(String day) {
