@@ -29,25 +29,19 @@ public class AddFoodFragment extends Fragment {
     MyDBHandler dbHandler;
     DailyDbHelper dailyDbHelper;
     SimpleDateFormat dateFormatter;
-
     private static final String TAG="AddFoodFragment";
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_addfood,container,false);
-
         return view;
     }
-
-
 
     @Override
     public void onStart() {
@@ -55,9 +49,6 @@ public class AddFoodFragment extends Fragment {
         View view= getView();
         foodName = view.findViewById(R.id.addFoodNameId);
         foodGram = view.findViewById(R.id.addGramFoodId);
-
-
-
         Button mButton1 = view.findViewById(R.id.addFoodId);
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,16 +66,11 @@ public class AddFoodFragment extends Fragment {
         Date now = new Date();
         DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y");
         String day = dateFormatter.format(now);
-
-
-
         MyDBHandler dbHandler = new MyDBHandler(getContext(), null, null, 1);
         DailyDbHelper dailyDbHelper = new DailyDbHelper(getContext(), null, null, 1);
 
         Food f1 = dbHandler.findHandler(name);
-
         if(f1==null){
-
             Intent intent =new Intent(getContext(), FoodRegistration.class);
             intent.putExtra("Name",name);
             intent.putExtra("Gram",gram);
@@ -95,13 +81,6 @@ public class AddFoodFragment extends Fragment {
             dailyDbHelper.addTodayFoodHandler(foodCopy);
             Toast.makeText(getContext(), "Food saved!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getContext(), MainActivity.class));
-
         }
-
-
-
-
     }
-
-
 }

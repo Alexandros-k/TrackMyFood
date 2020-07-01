@@ -155,7 +155,7 @@ public class TodayFoodFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ArrayList<Food> foodlist = dailyDbHelper.loadTodaysFoodMainPanelHandler(tv1.getText().toString());
+        ArrayList<Food> foodlist = dailyDbHelper.loadFoodHandler(tv1.getText().toString());
         customAdapter = new CustomAdapter2(getContext(), foodlist, this);
         lv.setAdapter(customAdapter);
         displayTotalMicroNutrients(tv1.getText().toString());
@@ -171,7 +171,6 @@ public class TodayFoodFragment extends Fragment {
     }
 
     public void displayTotalMicroNutrients() {
-        //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(dailyDbHelper.day);
         tv.setText("               Today You have consumed: \n" +
                 "kcal " + food.getKcal() + ", " + " protein " + food.getProtein() + " gr, carbs " + food.getCarbs() + " gr, " + " fats " + food.getFats() + " gr, ");
@@ -198,13 +197,12 @@ public class TodayFoodFragment extends Fragment {
         return dateFormatter.format(yesterday(counter).getTime());
     }
 
-    public void showYesterdayFoods(String date) {
-        //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        foodList = dailyDbHelper.loadYesterdaysFoodHandler(date);
+    public void showYesterdayFoods(String previousDay) {
+        foodList = dailyDbHelper.loadFoodHandler(previousDay);
         customAdapter = new CustomAdapter2(getActivity(), foodList);
         lv.setAdapter(customAdapter);
         tv1.setText(getYesterdayDateString());
-        displayTotalMicroNutrients(date);
+        displayTotalMicroNutrients(previousDay);
     }
 
     private String getNextDateString(int i) {
@@ -215,7 +213,7 @@ public class TodayFoodFragment extends Fragment {
     }
 
     public void showNextDayFoods(String nextDay) {
-        foodList = dailyDbHelper.loadNextDaysFoodHandler(nextDay);
+        foodList = dailyDbHelper.loadFoodHandler(nextDay);
         customAdapter = new CustomAdapter2(getActivity(), foodList);
         lv.setAdapter(customAdapter);
         tv1.setText(getNextDateString(counter));

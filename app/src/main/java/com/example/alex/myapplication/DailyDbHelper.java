@@ -20,12 +20,8 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
 
     //information of database
     Date now = new Date();
-
-    //DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y", Locale.ENGLISH);
     DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     String day = dateFormatter.format(now);
-   // String yesterday = getYesterdayDateString();
-    //String nextDay=getNextDateString();
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dailyFoodDB.db";
     private static final String TABLE_NAME = "todayFood";
@@ -54,9 +50,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {}
-    public String getTABLE_NAME() {
-        return TABLE_NAME;
-    }
+
     //initialize the database
     public DailyDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory , DATABASE_VERSION);
@@ -74,9 +68,9 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
-    public ArrayList<Food> loadTodaysFoodMainPanelHandler() {
+    public ArrayList<Food> loadFoodHandler(String requestedDate) {
         ArrayList<Food> foodList = new ArrayList<>();
-        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+day+"'";
+        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+requestedDate+"'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         while (cursor.moveToNext()) {
@@ -94,34 +88,14 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.close();
         return foodList;
     }
-    public ArrayList<Food> loadTodaysFoodMainPanelHandler(String Date) {
-        ArrayList<Food> foodList = new ArrayList<>();
-        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+day+"'";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        while (cursor.moveToNext()) {
-            int result_0 = cursor.getInt(0);
-            String result_1 = cursor.getString(1);
-            int result_2 = cursor.getInt(2);
-            int result_3 = cursor.getInt(3);
-            int result_4 = cursor.getInt(4);
-            int result_5 = cursor.getInt(5);
-            int result_6 = cursor.getInt(6);
-            Food food = new Food(result_0,result_1,result_2,result_3,result_4,result_5,result_6);
-            foodList.add(food);
-        }
-        cursor.close();
-        db.close();
-        return foodList;
-    }
-    public Food loadTodaysFoodTotalNutrientsHandler(String date) {
+    public Food loadTodaysFoodTotalNutrientsHandler(String requestedDate) {
         int kcal=0;
         int gram=0;
         int prot=0;
         int carbs=0;
         int fats=0;
         Food food= new Food();
-        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+date+"'";
+        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+requestedDate+"'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         while (cursor.moveToNext()) {
@@ -157,46 +131,6 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         }
         db.close();
         return result;
-    }
-    public ArrayList<Food> loadYesterdaysFoodHandler(String date) {
-        ArrayList<Food> foodList = new ArrayList<>();
-        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+date+"'";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-            while (cursor.moveToNext()) {
-                int result_0 = cursor.getInt(0);
-                String result_1 = cursor.getString(1);
-                int result_2 = cursor.getInt(2);
-                int result_3 = cursor.getInt(3);
-                int result_4 = cursor.getInt(4);
-                int result_5 = cursor.getInt(5);
-                int result_6 = cursor.getInt(6);
-                Food food = new Food(result_0, result_1, result_2, result_3, result_4, result_5, result_6);
-                foodList.add(food);
-            }
-            cursor.close();
-            db.close();
-        return foodList;
-    }
-    public ArrayList<Food> loadNextDaysFoodHandler(String nextDay) {
-        ArrayList<Food> foodList = new ArrayList<>();
-        String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+nextDay+"'";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        while (cursor.moveToNext()) {
-            int result_0 = cursor.getInt(0);
-            String result_1 = cursor.getString(1);
-            int result_2 = cursor.getInt(2);
-            int result_3 = cursor.getInt(3);
-            int result_4 = cursor.getInt(4);
-            int result_5 = cursor.getInt(5);
-            int result_6 = cursor.getInt(6);
-            Food food = new Food(result_0,result_1,result_2,result_3,result_4,result_5,result_6);
-            foodList.add(food);
-        }
-        cursor.close();
-        db.close();
-        return foodList;
     }
     public String getFirstRecord(){
         String query = "Select * FROM " + TABLE_NAME+ " where "+ COLUMN_ID +" = 1";
