@@ -136,7 +136,7 @@ public class CustomAdapter2 extends BaseAdapter {
                 int i = foodList.get(position).getID();
                 dailyDbHelper.deleteFoodHandler(i);
                 dpList.remove(position);
-                todayFood.displayTotalMicroNutrients();
+                todayFood.displayTotalMicroNutrients(dailyDbHelper.day);
                 notifyDataSetChanged();
             }
         });

@@ -170,16 +170,8 @@ public class TodayFoodFragment extends Fragment {
         }
     }
 
-    public void displayTotalMicroNutrients() {
-        food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(dailyDbHelper.day);
-        tv.setText("               Today You have consumed: \n" +
-                "kcal " + food.getKcal() + ", " + " protein " + food.getProtein() + " gr, carbs " + food.getCarbs() + " gr, " + " fats " + food.getFats() + " gr, ");
-        MainActivityFragment.newdisplayMicroNutrients(food);
-    }
-
     public void displayTotalMicroNutrients(String day) {
         MainActivityFragment.update(day);
-        //mListener.updateTest(day);
         food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
         tv.setText("               Today You have consumed: \n" +
                 "kcal " + food.getKcal() + ", " + " protein " + food.getProtein() + " gr, carbs " + food.getCarbs() + " gr, " + " fats " + food.getFats() + " gr, ");
