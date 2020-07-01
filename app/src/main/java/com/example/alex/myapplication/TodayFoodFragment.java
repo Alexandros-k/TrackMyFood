@@ -113,30 +113,29 @@ public class TodayFoodFragment extends Fragment {
         previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!startingDate.equals(geRequestedDate(counter))) {
-                    counter++;
-                    nextBtn.setVisibility(View.VISIBLE);
-                    showRequestedDayFoods(geRequestedDate(counter));
-                    MainActivityFragment.update(geRequestedDate(counter));
-                    if (startingDate.equals(geRequestedDate(counter))) {
-                        previousBtn.setVisibility(View.INVISIBLE);
+
+                    if (!startingDate.equals(geRequestedDate(counter))) {
+                        counter++;
+                        nextBtn.setVisibility(View.VISIBLE);
+                        showRequestedDayFoods(geRequestedDate(counter));
+                        MainActivityFragment.update(geRequestedDate(counter));
+                        if (startingDate.equals(geRequestedDate(counter))) {
+                            previousBtn.setVisibility(View.INVISIBLE);
+                        }
                     }
-                }
             }
         });
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (geRequestedDate(counter - 1).equals(day)) {
-                    nextBtn.setVisibility(View.INVISIBLE);
-                    counter--;
-                    showRequestedDayFoods(geRequestedDate(counter));
-                    displayTotalMicroNutrients(geRequestedDate(counter));
-                } else if (!geRequestedDate(counter).equals(day)) {
+                if (!geRequestedDate(counter).equals(day)) {
                     previousBtn.setVisibility(View.VISIBLE);
                     counter--;
                     showRequestedDayFoods(geRequestedDate(counter));
                     displayTotalMicroNutrients(geRequestedDate(counter));
+                    if (geRequestedDate(counter).equals(day)) {
+                        nextBtn.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
         });
