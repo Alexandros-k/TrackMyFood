@@ -44,7 +44,6 @@ public class TodayFoodFragment extends Fragment {
     public Date now;
     public DateFormat dateFormatter;
     public String startingDate;
-    private String formattedStartingDate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,6 +93,9 @@ public class TodayFoodFragment extends Fragment {
         nextBtn.setVisibility(View.INVISIBLE);
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         startingDate = dailyDbHelper.getFirstRecord();
+        if(startingDate == null){
+            previousBtn.setVisibility(View.INVISIBLE);
+        }else{previousBtn.setVisibility(View.VISIBLE);}
         mainActivity = new MainActivity();
         customAdapter = new CustomAdapter2(getContext(), this);
         now = new Date();
