@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Track My Food</string>
-    <string name="title_activity_main2">Track My Food</string>
+    <string name="app_name">Food Diary</string>
+    <string name="title_activity_main2">Food Diary</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="track_my_food">Track My Food</string>
+    <string name="track_my_food">Food Diary</string>
     <string name="previousday">previousDay</string>
     <string name="nextday">nextDay</string>
     <string name="name">Name</string>

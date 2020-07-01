@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity
     public String day;
     private SectionPageAdapter mSectionPageAdapter;
     private ViewPager mViewPager;
-    //private String day;
 
     public MainActivity() {
         Date now = new Date();
@@ -38,17 +37,14 @@ public class MainActivity extends AppCompatActivity
         day = dateFormatter.format(now);
     }
 
-   public void updateTest(String day){
-
-    };
-
-
+   public void updateTest(String day){};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
 
+        //toolbar einai panw deksia ta settings
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -66,15 +62,10 @@ public class MainActivity extends AppCompatActivity
         mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
         TabLayout tabLayout = findViewById(R.id.tabs);
-
-        DailyDbHelper dailyDbHelper = new DailyDbHelper(this, null, null, 1);
-        /*if(!dailyDbHelper.tableExists(day)){
-            dailyDbHelper.makeTable(day,dailyDbHelper);
-        }*/
         tabLayout.setupWithViewPager(mViewPager);
     }
 
-    @Override
+   @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
