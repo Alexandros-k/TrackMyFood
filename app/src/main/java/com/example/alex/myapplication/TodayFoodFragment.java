@@ -113,13 +113,12 @@ public class TodayFoodFragment extends Fragment {
         previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!startingDate.equals(getYesterdayDateString())) {
+                if (!startingDate.equals(geRequestedDate(counter))) {
                     counter++;
-                    yesterday(counter);
                     nextBtn.setVisibility(View.VISIBLE);
-                    showRequestedDayFoods(getYesterdayDateString());
-                    MainActivityFragment.update(getYesterdayDateString());
-                    if (startingDate.equals(getYesterdayDateString())) {
+                    showRequestedDayFoods(geRequestedDate(counter));
+                    MainActivityFragment.update(geRequestedDate(counter));
+                    if (startingDate.equals(geRequestedDate(counter))) {
                         previousBtn.setVisibility(View.INVISIBLE);
                     }
                 }
@@ -128,16 +127,16 @@ public class TodayFoodFragment extends Fragment {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getNextDateString(counter - 1).equals(day)) {
+                if (geRequestedDate(counter - 1).equals(day)) {
                     nextBtn.setVisibility(View.INVISIBLE);
                     counter--;
-                    showRequestedDayFoods(getNextDateString(counter));
-                    displayTotalMicroNutrients(getNextDateString(counter));
-                } else if (!getNextDateString(counter).equals(day)) {
+                    showRequestedDayFoods(geRequestedDate(counter));
+                    displayTotalMicroNutrients(geRequestedDate(counter));
+                } else if (!geRequestedDate(counter).equals(day)) {
                     previousBtn.setVisibility(View.VISIBLE);
                     counter--;
-                    showRequestedDayFoods(getNextDateString(counter));
-                    displayTotalMicroNutrients(getNextDateString(counter));
+                    showRequestedDayFoods(geRequestedDate(counter));
+                    displayTotalMicroNutrients(geRequestedDate(counter));
                 }
             }
         });
@@ -177,19 +176,8 @@ public class TodayFoodFragment extends Fragment {
                 "kcal " + food.getKcal() + ", " + " protein " + food.getProtein() + " gr, carbs " + food.getCarbs() + " gr, " + " fats " + food.getFats() + " gr, ");
         MainActivityFragment.newdisplayMicroNutrients(food);
     }
-
-    private Calendar yesterday(int i) {
-        final Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -i);
-        return cal;
-    }
-
-    private String getYesterdayDateString() {
-        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        return dateFormatter.format(yesterday(counter).getTime());
-    }
-
-    private String getNextDateString(int i) {
+//this is used to get either previous or next date
+    private String geRequestedDate(int i) {
         cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -i);
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
