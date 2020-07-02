@@ -45,17 +45,20 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_nav_drawer);
 
         //toolbar einai panw deksia ta settings
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //ta settings ta energopoieis apo to menu/nav_drawer.xml
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        //auto einai to toggle switch gia to sidepanel
+     /*   ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState();*/
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //auto energopoiei to sidepanel preipei na to kanei uncommentout kai sto layout/activity_nav_drawer.xml
+        /*NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);*/
 
         mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
 
