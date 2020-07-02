@@ -15,6 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class CalendarActivity extends AppCompatActivity {
+/*
 String newDay;
 Calendar calendar;
 int dayOfMonth1;
@@ -92,5 +93,6 @@ dayOfMonth1= dayOfMonth;
 
     }
 
+*/
 
 }

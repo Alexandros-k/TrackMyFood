@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/modernTheme"
-    tools:context="com.example.alex.myapplication.MainActivityFragment">
+    tools:context="com.example.alex.myapplication.MainActivityFragment"
+    tools:ignore="MissingDefaultResource">
 
 
     <TextView
@@ -22,7 +23,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
         app:layout_constraintVertical_bias="0.517"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintVertical_weight="1"
+        android:layout_marginRight="130dp"
+        android:layout_marginLeft="131dp" />
 
 
     <TextView
@@ -39,7 +42,10 @@
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barChart" />
+        app:layout_constraintTop_toBottomOf="@+id/barChart"
+        android:layout_marginRight="130dp"
+        android:layout_marginLeft="131dp"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/textView12"

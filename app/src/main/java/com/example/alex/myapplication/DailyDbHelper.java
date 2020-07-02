@@ -23,7 +23,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
     DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     String day = dateFormatter.format(now);
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "dailyFoodDB.db";
+    private static final String DATABASE_NAME = "dailyFoodRecordDB.db";
     private static final String TABLE_NAME = "todayFood";
     private static final String COLUMN_ID = "foodID";
     private static final String COLUMN_NAME1 = "foodName";
@@ -49,7 +49,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {}
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){}
 
     //initialize the database
     public DailyDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

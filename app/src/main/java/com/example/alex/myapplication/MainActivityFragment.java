@@ -68,7 +68,7 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
         barChart = view.findViewById(R.id.barChart);
         displayMicroNutrients();
         Date now = new Date();
-        DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y", Locale.ENGLISH);
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         day = dateFormatter.format(now);
 
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
