@@ -26,7 +26,7 @@ import java.util.Locale;
 public class TodayFoodFragment extends Fragment {
     private static final String TAG = "TodayFoodFragment";
     public DailyDbHelper dailyDbHelper;
-    public TodayFoodCustomAdapter customAdapter;
+    public TodayFoodCustomAdapter todayFoodCustomAdapter;
     public ListView lv;
     public ArrayList<Food> foodList;
     public int counter = 0;
@@ -99,10 +99,10 @@ public class TodayFoodFragment extends Fragment {
             previousBtn.setVisibility(View.INVISIBLE);
         }else{previousBtn.setVisibility(View.VISIBLE);}
         mainActivity = new MainActivity();
-        customAdapter = new TodayFoodCustomAdapter(getContext(), this);
+        todayFoodCustomAdapter = new TodayFoodCustomAdapter(getContext(), this);
         day = Utility.getCurrentDate();
         tv1.setText(day);
-        lv.setAdapter(customAdapter);
+        lv.setAdapter(todayFoodCustomAdapter);
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             public boolean onItemLongClick(AdapterView<?> arg0, View v,
@@ -156,8 +156,8 @@ public class TodayFoodFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ArrayList<Food> foodlist = dailyDbHelper.loadFoodHandler(tv1.getText().toString());
-        customAdapter = new TodayFoodCustomAdapter(getContext(), foodlist, this);
-        lv.setAdapter(customAdapter);
+        todayFoodCustomAdapter = new TodayFoodCustomAdapter(getContext(), foodlist, this);
+        lv.setAdapter(todayFoodCustomAdapter);
         displayTotalMicroNutrients();
     }
 
@@ -188,8 +188,8 @@ public class TodayFoodFragment extends Fragment {
 
     public void showRequestedDayFoods(String RequestedDay) {
         foodList = dailyDbHelper.loadFoodHandler(RequestedDay);
-        customAdapter = new TodayFoodCustomAdapter(getActivity(), foodList,this);
-        lv.setAdapter(customAdapter);
+        todayFoodCustomAdapter = new TodayFoodCustomAdapter(getActivity(), foodList,this);
+        lv.setAdapter(todayFoodCustomAdapter);
         tv1.setText(RequestedDay);
         displayTotalMicroNutrients();
     }

@@ -20,20 +20,19 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-    TodayFoodFragment.Listener{
+        TodayFoodFragment.Listener {
 
-    private static  final String TAG ="MainActivity";
+    private static final String TAG = "MainActivity";
     public String day;
     private SectionPageAdapter mSectionPageAdapter;
     private ViewPager mViewPager;
 
     public MainActivity() {
-        Date now = new Date();
-        DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y", Locale.ENGLISH);
-        day = dateFormatter.format(now);
+        day = Utility.getCurrentDate();
     }
 
-   public void updateTest(String day){};
+    public void updateTest(String day) {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity
 
         //toolbar einai panw deksia ta settings
         //ta settings ta energopoieis apo to menu/nav_drawer.xml
-       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -57,14 +56,13 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);*/
 
         mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
-
         mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
-   @Override
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -102,9 +100,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.dailyGoal) {
-            startActivity(new Intent(this,DailyGoalActivity.class));
+            startActivity(new Intent(this, DailyGoalActivity.class));
         } else if (id == R.id.Calendar) {
-        startActivity(new Intent(this,CalendarActivity.class));
+            startActivity(new Intent(this, CalendarActivity.class));
         } else if (id == R.id.info) {
 
         } else if (id == R.id.meal) {
@@ -115,12 +113,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void setupViewPager(ViewPager viewPager){
+    private void setupViewPager(ViewPager viewPager) {
         SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MainActivityFragment(),"MAIN");
-        adapter.addFragment(new TodayFoodFragment(),"TODAY FOOD");
-        adapter.addFragment(new FoodLibraryFragment(),"FOOD LIBRARY");
-        //adapter.addFragment(new AddFoodFragment(),"ADD FOOD");
+        adapter.addFragment(new MainActivityFragment(), "MAIN");
+        adapter.addFragment(new TodayFoodFragment(), "TODAY FOOD");
+        adapter.addFragment(new FoodLibraryFragment(), "FOOD LIBRARY");
         viewPager.setAdapter(adapter);
     }
 }
