@@ -8,14 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.example.alex.myapplication.Database.DailyDbHelper;
 import com.example.alex.myapplication.Database.DatabaseHandler;
 import com.example.alex.myapplication.Models.Food;
 import com.example.alex.myapplication.Models.DataProviderToCustomAdapter;
 import com.example.alex.myapplication.PopUp;
 import com.example.alex.myapplication.R;
-
 import java.util.ArrayList;
 
 import static android.support.v4.content.ContextCompat.startActivity;
@@ -30,14 +27,13 @@ public class FoodLibraryCustomAdapter extends BaseAdapter {
     ArrayList<DataProviderToCustomAdapter> dpList;
     DatabaseHandler dbHandler;
     DataProviderToCustomAdapter dp;
-    DailyDbHelper dailyDbHelper;
+    DatabaseHandler DbHelper;
 
     public FoodLibraryCustomAdapter(Context context) {
         dbHandler = new DatabaseHandler(context, null, null, 1);
         foodList = dbHandler.loadFoodsHandler();
         dpList = new ArrayList<>();
-        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
-
+        DbHelper = new DatabaseHandler(context, null, null, 1);
         for (int i = 0; i < foodList.size(); i++) {
             dp = new DataProviderToCustomAdapter(
                     foodList.get(i).getID(),
@@ -47,11 +43,9 @@ public class FoodLibraryCustomAdapter extends BaseAdapter {
                     foodList.get(i).getProtein(),
                     foodList.get(i).getCarbs(),
                     foodList.get(i).getFats()
-
             );
             dpList.add(dp);
         }
-
     }
 
     @Override

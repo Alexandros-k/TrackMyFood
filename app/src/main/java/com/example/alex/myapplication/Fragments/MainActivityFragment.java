@@ -8,8 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Database.DatabaseHandler;
 import com.example.alex.myapplication.Models.Food;
 import com.example.alex.myapplication.R;
 import com.example.alex.myapplication.Utility;
@@ -18,7 +17,6 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-
 import java.util.ArrayList;
 
 /**
@@ -26,7 +24,7 @@ import java.util.ArrayList;
  */
 
 public class MainActivityFragment extends Fragment implements TodayFoodFragment.Listener {
-    private DailyDbHelper dailyDbHelper;
+    private DatabaseHandler DbHelper;
     private static final String TAG = "MainActivityFragment";
     private static TextView tv1;
     private TextView tv;
@@ -66,8 +64,8 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
         tv2 = view.findViewById(R.id.textView2);
         barChart = view.findViewById(R.id.barChart);
         day = Utility.getCurrentDate();
-        dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
+        DbHelper = new DatabaseHandler(getActivity(), null, null, 1);
+        food = DbHelper.loadTodaysFoodTotalNutrientsHandler(day);
         displayMicroNutrients(food);
         tv1.setText(day);
         tv.setText("Today You have consumed: ");

@@ -7,14 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Database.DatabaseHandler;
 import com.example.alex.myapplication.Models.Food;
 import com.example.alex.myapplication.Models.DataProviderToCustomAdapter;
 import com.example.alex.myapplication.R;
 import com.example.alex.myapplication.Fragments.TodayFoodFragment;
 import com.example.alex.myapplication.Utility;
-
 import java.util.ArrayList;
 
 
@@ -25,15 +23,15 @@ import java.util.ArrayList;
 public class TodayFoodCustomAdapter extends BaseAdapter {
     ArrayList<Food> foodList;
     ArrayList<DataProviderToCustomAdapter> dpList;
-    DailyDbHelper dailyDbHelper;
+    DatabaseHandler dbHandler;
     DataProviderToCustomAdapter dp;
     TodayFoodFragment todayFood;
     String day = Utility.getCurrentDate();
 
     public TodayFoodCustomAdapter(Context context, TodayFoodFragment tf) {
         todayFood = tf;
-        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
-        foodList = dailyDbHelper.loadFoodHandler(day);
+        dbHandler = new DatabaseHandler(context, null, null, 1);
+        foodList = dbHandler.loadFoodHandler(day);
         dpList = new ArrayList<>();
         for (int i = 0; i < foodList.size(); i++) {
             dp = new DataProviderToCustomAdapter(
@@ -51,7 +49,7 @@ public class TodayFoodCustomAdapter extends BaseAdapter {
 
     public TodayFoodCustomAdapter(Context context, ArrayList<Food> foodList1, TodayFoodFragment tf) {
         todayFood = tf;
-        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
+        dbHandler = new DatabaseHandler(context, null, null, 1);
         foodList = foodList1;
         dpList = new ArrayList<>();
         for (int i = 0; i < foodList.size(); i++) {
@@ -114,9 +112,9 @@ public class TodayFoodCustomAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View view) {
-               final ArrayList<Food> foodList = dailyDbHelper.loadFoodHandler(todayFood.geRequestedDate(todayFood.counter));
+               final ArrayList<Food> foodList = dbHandler.loadFoodHandler(todayFood.geRequestedDate(todayFood.counter));
                 int i = foodList.get(position).getID();
-                dailyDbHelper.deleteFoodHandler(i);
+                dbHandler.deleteTodayFoodHandler(i);
                 dpList.remove(position);
                 todayFood.displayTotalMicroNutrients();
                 notifyDataSetChanged();

@@ -1,23 +1,19 @@
 package com.example.alex.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
+import java.util.ArrayList;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-
-import com.example.alex.myapplication.CustomAdapters.FoodLibraryCustomAdapter;
-import com.example.alex.myapplication.Database.DailyDbHelper;
+import android.util.DisplayMetrics;
+import android.support.v7.app.AppCompatActivity;
+import com.example.alex.myapplication.Models.Food;
 import com.example.alex.myapplication.Database.DatabaseHandler;
 import com.example.alex.myapplication.Fragments.FoodLibraryFragment;
-import com.example.alex.myapplication.Models.Food;
-
-import java.util.ArrayList;
+import com.example.alex.myapplication.CustomAdapters.FoodLibraryCustomAdapter;
 
 public class PopUp extends AppCompatActivity {
-    DailyDbHelper dailyDbHelper;
     DatabaseHandler dbHandler;
     PopupWindow popUpWindow;
 
@@ -47,7 +43,6 @@ public class PopUp extends AppCompatActivity {
 
     private void calculateGraml(int graml, View v, int position) {
         dbHandler = new DatabaseHandler(v.getContext(), null, null, 1);
-        dailyDbHelper = new DailyDbHelper(v.getContext(), null, null, 1);
         final ArrayList<Food> foodList = dbHandler.loadFoodsHandler();
         Food food = foodList.get(position);
         int fg = food.getGram();
@@ -56,7 +51,7 @@ public class PopUp extends AppCompatActivity {
         int c = food.getCarbs();
         int f = food.getFats();
         Food f1 = calculateMn(food.getName(), graml, fg, kc, p, c, f);
-        dailyDbHelper.addTodayFoodHandler(f1);
+        dbHandler.addTodayFoodHandler(f1);
         FoodLibraryCustomAdapter ca3 = new FoodLibraryCustomAdapter(getApplicationContext());
         ca3.notifyDataSetChanged();
     }

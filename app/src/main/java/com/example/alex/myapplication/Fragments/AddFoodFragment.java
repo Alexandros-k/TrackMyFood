@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.alex.myapplication.Database.DailyDbHelper;
 import com.example.alex.myapplication.Database.DatabaseHandler;
 import com.example.alex.myapplication.Models.Food;
 import com.example.alex.myapplication.Activities.FoodRegistration;
@@ -62,7 +60,6 @@ public class AddFoodFragment extends Fragment {
 
     public void addFood(String name, int gram){
         DatabaseHandler dbHandler = new DatabaseHandler(getContext(), null, null, 1);
-        DailyDbHelper dailyDbHelper = new DailyDbHelper(getContext(), null, null, 1);
         Food f1 = dbHandler.findFoodHandler(name);
         if(f1==null){
             Intent intent =new Intent(getContext(), FoodRegistration.class);
@@ -71,7 +68,7 @@ public class AddFoodFragment extends Fragment {
             startActivity(intent);
         }else {
             Food foodCopy = dbHandler.findFoodHandler(f1.getName());
-            dailyDbHelper.addTodayFoodHandler(foodCopy);
+            dbHandler.addTodayFoodHandler(foodCopy);
             Toast.makeText(getContext(), "Food saved!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getContext(), MainActivity.class));
         }

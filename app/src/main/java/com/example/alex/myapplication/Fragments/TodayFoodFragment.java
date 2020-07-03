@@ -11,14 +11,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.example.alex.myapplication.CustomAdapters.TodayFoodCustomAdapter;
-import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Database.DatabaseHandler;
 import com.example.alex.myapplication.Models.Food;
 import com.example.alex.myapplication.MainActivity;
 import com.example.alex.myapplication.R;
 import com.example.alex.myapplication.Utility;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ import java.util.Locale;
 
 public class TodayFoodFragment extends Fragment {
     private static final String TAG = "TodayFoodFragment";
-    public DailyDbHelper dailyDbHelper;
+    public DatabaseHandler DbHelper;
     public TodayFoodCustomAdapter todayFoodCustomAdapter;
     public ListView lv;
     public ArrayList<Food> foodList;
@@ -100,8 +98,8 @@ public class TodayFoodFragment extends Fragment {
         previousBtn = view.findViewById(R.id.previousBtn);
         nextBtn = view.findViewById(R.id.nextDayBtn);
         nextBtn.setVisibility(View.INVISIBLE);
-        dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        startingDate = dailyDbHelper.getFirstRecord();
+        DbHelper = new DatabaseHandler(getActivity(), null, null, 1);
+        startingDate = DbHelper.getFirstRecord();
         if(startingDate == null){
             previousBtn.setVisibility(View.INVISIBLE);
         }else{previousBtn.setVisibility(View.VISIBLE);}
@@ -162,7 +160,7 @@ public class TodayFoodFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ArrayList<Food> foodlist = dailyDbHelper.loadFoodHandler(tv1.getText().toString());
+        ArrayList<Food> foodlist = DbHelper.loadFoodHandler(tv1.getText().toString());
         todayFoodCustomAdapter = new TodayFoodCustomAdapter(getContext(), foodlist, this);
         lv.setAdapter(todayFoodCustomAdapter);
         displayTotalMicroNutrients();
@@ -180,7 +178,7 @@ public class TodayFoodFragment extends Fragment {
     public void displayTotalMicroNutrients() {
         String day = geRequestedDate(counter);
         MainActivityFragment.update(day);
-        food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
+        food = DbHelper.loadTodaysFoodTotalNutrientsHandler(day);
         tv.setText("               Today You have consumed: \n" +
                 "kcal " + food.getKcal() + ", " + " protein " + food.getProtein() + " gr, carbs " + food.getCarbs() + " gr, " + " fats " + food.getFats() + " gr, ");
         maf.displayMicroNutrients(food);
@@ -194,7 +192,7 @@ public class TodayFoodFragment extends Fragment {
     }
 
     public void showRequestedDayFoods(String RequestedDay) {
-        foodList = dailyDbHelper.loadFoodHandler(RequestedDay);
+        foodList = DbHelper.loadFoodHandler(RequestedDay);
         todayFoodCustomAdapter = new TodayFoodCustomAdapter(getActivity(), foodList,this);
         lv.setAdapter(todayFoodCustomAdapter);
         tv1.setText(RequestedDay);
