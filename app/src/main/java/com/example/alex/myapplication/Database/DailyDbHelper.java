@@ -1,10 +1,13 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.alex.myapplication.Models.Food;
+import com.example.alex.myapplication.Utility;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,11 +20,7 @@ import java.util.Locale;
  */
 
 public class DailyDbHelper  extends SQLiteOpenHelper {
-
-    //information of database
-    Date now = new Date();
-    DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-    String day = dateFormatter.format(now);
+    public  String day = Utility.getCurrentDate();
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dailyFoodRecordDB.db";
     private static final String TABLE_NAME = "todayFood";
@@ -55,6 +54,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
     public DailyDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory , DATABASE_VERSION);
     }
+
     public void addTodayFoodHandler(Food food) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME1, food.getName());
@@ -68,6 +68,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
+
     public ArrayList<Food> loadFoodHandler(String requestedDate) {
         ArrayList<Food> foodList = new ArrayList<>();
         String query = "Select * FROM " + TABLE_NAME+ " where consumptionDate = '"+requestedDate+"'";
@@ -88,6 +89,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.close();
         return foodList;
     }
+
     public Food loadTodaysFoodTotalNutrientsHandler(String requestedDate) {
         int kcal=0;
         int gram=0;
@@ -118,6 +120,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         db.close();
         return food;
     }
+
     public void deleteFoodHandler(int id) {
         String query1 = "delete FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + "= '" + id + "'";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -128,6 +131,7 @@ public class DailyDbHelper  extends SQLiteOpenHelper {
         }
         db.close();
     }
+
     public String getFirstRecord(){
         String query = "Select * FROM " + TABLE_NAME+ " where "+ COLUMN_ID +" = 1";
         SQLiteDatabase db = this.getWritableDatabase();

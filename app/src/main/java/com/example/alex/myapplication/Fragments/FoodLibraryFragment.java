@@ -1,4 +1,4 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.alex.myapplication.CustomAdapters.FoodLibraryCustomAdapter;
+import com.example.alex.myapplication.Activities.FoodRegistration;
+import com.example.alex.myapplication.R;
 
 
 /**

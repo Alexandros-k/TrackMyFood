@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundpic"
-    tools:context="com.example.alex.myapplication.AddFoodFragment">
+    tools:context="com.example.alex.myapplication.Fragments.AddFoodFragment">
 
     <EditText
         android:id="@+id/addFoodNameId"

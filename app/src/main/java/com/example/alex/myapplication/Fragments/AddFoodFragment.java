@@ -1,4 +1,4 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Database.DatabaseHandler;
+import com.example.alex.myapplication.Models.Food;
+import com.example.alex.myapplication.Activities.FoodRegistration;
+import com.example.alex.myapplication.MainActivity;
+import com.example.alex.myapplication.R;
 
 /**
  * Created by Alex on 2/14/2018.

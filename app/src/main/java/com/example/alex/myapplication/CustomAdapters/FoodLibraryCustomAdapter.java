@@ -1,6 +1,7 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.CustomAdapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,49 +9,35 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Database.DatabaseHandler;
+import com.example.alex.myapplication.Models.Food;
+import com.example.alex.myapplication.Models.DataProviderToCustomAdapter;
+import com.example.alex.myapplication.PopUp;
+import com.example.alex.myapplication.R;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 
 /**
  * Created by Alex on 2/10/2018.
  */
 
-public class TodayFoodCustomAdapter extends BaseAdapter {
+public class FoodLibraryCustomAdapter extends BaseAdapter {
     ArrayList<Food> foodList;
     ArrayList<DataProviderToCustomAdapter> dpList;
-    DailyDbHelper dailyDbHelper;
+    DatabaseHandler dbHandler;
     DataProviderToCustomAdapter dp;
-    TodayFoodFragment todayFood;
-    String day = Utility.getCurrentDate();
+    DailyDbHelper dailyDbHelper;
 
-    public TodayFoodCustomAdapter(Context context, TodayFoodFragment tf) {
-        todayFood = tf;
-        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
-        foodList = dailyDbHelper.loadFoodHandler(day);
+    public FoodLibraryCustomAdapter(Context context) {
+        dbHandler = new DatabaseHandler(context, null, null, 1);
+        foodList = dbHandler.loadFoodsHandler();
         dpList = new ArrayList<>();
-        for (int i = 0; i < foodList.size(); i++) {
-            dp = new DataProviderToCustomAdapter(
-                    foodList.get(i).getID(),
-                    foodList.get(i).getName(),
-                    foodList.get(i).getGram(),
-                    foodList.get(i).getKcal(),
-                    foodList.get(i).getProtein(),
-                    foodList.get(i).getCarbs(),
-                    foodList.get(i).getFats()
-            );
-            dpList.add(dp);
-        }
-    }
+        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
 
-    public TodayFoodCustomAdapter(Context context, ArrayList<Food> foodList1, TodayFoodFragment tf) {
-        todayFood = tf;
-        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
-        foodList = foodList1;
-        dpList = new ArrayList<>();
         for (int i = 0; i < foodList.size(); i++) {
             dp = new DataProviderToCustomAdapter(
                     foodList.get(i).getID(),
@@ -64,17 +51,17 @@ public class TodayFoodCustomAdapter extends BaseAdapter {
             );
             dpList.add(dp);
         }
+
     }
 
     @Override
     public int getCount() {
-        return dpList.size();
-        // total number of elements in the list
+        return dpList.size(); // total number of elements in the list
     }
 
     @Override
     public Object getItem(int position) {
-        return dpList.get(position);    // single item in the list
+        return dpList.get(position);  // single item in the list
     }
 
     @Override
@@ -98,25 +85,34 @@ public class TodayFoodCustomAdapter extends BaseAdapter {
         TextView foodCarbs = view.findViewById(R.id.tvCarbs);
         TextView foodFats = view.findViewById(R.id.tvFats);
 
-        foodId.setText("ID: " + String.valueOf(dpList.get(position).getID()));
+        foodId.setText(String.valueOf(dpList.get(position).getID()));
         foodName.setText(String.valueOf(dpList.get(position).getName()));
-        foodKcal.setText(String.valueOf(dpList.get(position).getKcal()) + " gr");
+        foodKcal.setText(String.valueOf(dpList.get(position).getKcal()));
         foodGram.setText(String.valueOf(dpList.get(position).getGram()));
-        foodProtein.setText(String.valueOf(dpList.get(position).getProtein() + " gr"));
-        foodCarbs.setText(String.valueOf(dpList.get(position).getCarbs()) + " gr");
-        foodFats.setText(String.valueOf(dpList.get(position).getFats()) + " gr");
-        Button deleteBtn = view.findViewById(R.id.buttondel);
+        foodProtein.setText(String.valueOf(dpList.get(position).getProtein()));
+        foodCarbs.setText(String.valueOf(dpList.get(position).getCarbs()));
+        foodFats.setText(String.valueOf(dpList.get(position).getFats()));
 
+        Button deleteBtn = view.findViewById(R.id.buttondel);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-               final ArrayList<Food> foodList = dailyDbHelper.loadFoodHandler(todayFood.geRequestedDate(todayFood.counter));
+                final ArrayList<Food> foodList = dbHandler.loadFoodsHandler();
                 int i = foodList.get(position).getID();
-                dailyDbHelper.deleteFoodHandler(i);
+                dbHandler.deleteFoodHandler(i);
                 dpList.remove(position);
-                todayFood.displayTotalMicroNutrients();
                 notifyDataSetChanged();
+            }
+        });
+
+        Button addBtn = view.findViewById(R.id.buttonAdd);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(v.getContext(), PopUp.class);
+                in.putExtra("position", position);
+                startActivity(v.getContext(), in, null);
             }
         });
         return view;

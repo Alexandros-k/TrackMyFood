@@ -13,10 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import com.example.alex.myapplication.Fragments.FoodLibraryFragment;
+import com.example.alex.myapplication.Fragments.MainActivityFragment;
+import com.example.alex.myapplication.Fragments.TodayFoodFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

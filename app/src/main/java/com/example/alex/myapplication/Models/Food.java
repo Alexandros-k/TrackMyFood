@@ -1,11 +1,10 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.Models;
 
 /**
- * Created by Alex on 2/6/2018.
+ * Created by Alex on 2/3/2018.
  */
 
-public class DataProviderToCustomAdapter {
-
+public class Food {
     private int ID;
     private String name;
     private int Kcal;
@@ -13,30 +12,18 @@ public class DataProviderToCustomAdapter {
     private int Protein;
     private int Carbs;
     private int Fats;
-    private int Quantity;
 
-    public DataProviderToCustomAdapter(int ID, String name, int kcal, int gram, int protein, int carbs, int fats, int quantity) {
-        this.ID = ID;
+    public Food(int id,String name, int kcal, int gram, int protein, int carbs, int fats) {
         this.name = name;
         Kcal = kcal;
         this.gram = gram;
         Protein = protein;
         Carbs = carbs;
         Fats = fats;
-        Quantity = quantity;
+        ID=id;
     }
 
-    public DataProviderToCustomAdapter(String name, int kcal, int gram, int protein, int carbs, int fats, int quantity) {
-        this.name = name;
-        Kcal = kcal;
-        this.gram = gram;
-        Protein = protein;
-        Carbs = carbs;
-        Fats = fats;
-        Quantity = quantity;
-    }
-
-    public DataProviderToCustomAdapter(String name, int kcal, int gram, int protein, int carbs, int fats) {
+    public Food(String name, int kcal, int gram, int protein, int carbs, int fats) {
         this.name = name;
         Kcal = kcal;
         this.gram = gram;
@@ -45,9 +32,7 @@ public class DataProviderToCustomAdapter {
         Fats = fats;
     }
 
-    public DataProviderToCustomAdapter(int ID, String name, int kcal, int gram, int protein, int carbs, int fats) {
-        this.ID = ID;
-        this.name = name;
+    public Food(int kcal, int gram, int protein, int carbs, int fats) {
         Kcal = kcal;
         this.gram = gram;
         Protein = protein;
@@ -55,12 +40,7 @@ public class DataProviderToCustomAdapter {
         Fats = fats;
     }
 
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
+    public Food() {
     }
 
     public String getName() {
@@ -111,11 +91,25 @@ public class DataProviderToCustomAdapter {
         Fats = fats;
     }
 
-    public int getQuantity() {
-        return Quantity;
+
+    public int getID() {
+        return ID;
     }
 
-    public void setQuantity(int quantity) {
-        Quantity = quantity;
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", Kcal=" + Kcal +
+                ", gram=" + gram +
+                ", Protein=" + Protein +
+                ", Carbs=" + Carbs +
+                ", Fats=" + Fats +
+                '}';
     }
 }

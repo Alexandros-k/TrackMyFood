@@ -8,6 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
+import com.example.alex.myapplication.CustomAdapters.FoodLibraryCustomAdapter;
+import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Database.DatabaseHandler;
+import com.example.alex.myapplication.Fragments.FoodLibraryFragment;
+import com.example.alex.myapplication.Models.Food;
+
 import java.util.ArrayList;
 
 public class PopUp extends AppCompatActivity {

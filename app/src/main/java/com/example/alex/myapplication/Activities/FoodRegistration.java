@@ -1,4 +1,4 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.Activities;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Database.DatabaseHandler;
+import com.example.alex.myapplication.Models.Food;
+import com.example.alex.myapplication.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.alex.myapplication.CustomAdapters.TodayFoodCustomAdapter;
+import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Models.Food;
+import com.example.alex.myapplication.MainActivity;
+import com.example.alex.myapplication.R;
+import com.example.alex.myapplication.Utility;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -44,7 +51,7 @@ public class TodayFoodFragment extends Fragment {
     public Date now;
     public DateFormat dateFormatter;
     public String startingDate;
-    public  MainActivityFragment maf;
+    public MainActivityFragment maf;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

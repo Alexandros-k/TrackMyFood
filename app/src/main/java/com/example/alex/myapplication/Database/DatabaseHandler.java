@@ -1,10 +1,12 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.alex.myapplication.Models.Food;
 
 import java.util.ArrayList;
 

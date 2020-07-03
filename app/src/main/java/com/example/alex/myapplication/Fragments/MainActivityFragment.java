@@ -1,4 +1,4 @@
-package com.example.alex.myapplication;
+package com.example.alex.myapplication.Fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.alex.myapplication.Database.DailyDbHelper;
+import com.example.alex.myapplication.Models.Food;
+import com.example.alex.myapplication.R;
+import com.example.alex.myapplication.Utility;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
