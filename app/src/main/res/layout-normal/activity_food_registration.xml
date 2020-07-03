@@ -8,42 +8,37 @@
     android:background="@color/modernTheme"
     tools:context="com.example.alex.myapplication.Activities.FoodRegistration">
 
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorAppBar"
-
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
     </android.support.design.widget.AppBarLayout>
 
-
-
-    <EditText
-        android:id="@+id/KcalId"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="57dp"
-        android:layout_marginStart="57dp"
-        android:ems="10"
-        android:hint="Kcal"
-        android:textColorHint="@color/colorText"
-        android:inputType="numberDecimal"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/proteinId"
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorText"
+        android:text="Add nutrients per 100r/ml"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/foodNameId"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gramId" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <EditText
         android:id="@+id/foodNameId"
@@ -53,7 +48,6 @@
         android:layout_marginStart="57dp"
         android:ems="10"
         android:textColor="@color/colorText"
-
         android:hint="FoodName"
         android:textColorHint="@color/colorText"
         android:inputType="text"
@@ -72,12 +66,30 @@
         android:ems="10"
         android:hint="Gram"
         android:textColorHint="@color/colorText"
+        android:textColor="@color/colorText"
         android:inputType="number"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/KcalId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foodNameId" />
+        app:layout_constraintTop_toBottomOf="@+id/foodNameId"/>
+
+    <EditText
+        android:id="@+id/KcalId"
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="57dp"
+        android:ems="10"
+        android:hint="Kcal"
+        android:textColorHint="@color/colorText"
+        android:textColor="@color/colorText"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/proteinId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gramId"/>
 
     <EditText
         android:id="@+id/proteinId"
@@ -88,6 +100,7 @@
         android:ems="10"
         android:hint="Protein"
         android:textColorHint="@color/colorText"
+        android:textColor="@color/colorText"
         android:inputType="numberDecimal"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/carbsId"
@@ -104,9 +117,9 @@
         android:ems="10"
         android:hint="Carbs"
         android:textColorHint="@color/colorText"
+        android:textColor="@color/colorText"
         android:inputType="numberDecimal"
         android:textSize="12sp"
-
         app:layout_constraintBottom_toTopOf="@+id/fatsId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,6 +134,7 @@
         android:ems="10"
         android:hint="Fats"
         android:textColorHint="@color/colorText"
+        android:textColor="@color/colorText"
         android:inputType="numberDecimal"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/SaveFoodId"
@@ -138,29 +152,13 @@
         android:background="@drawable/button"
         android:onClick="addFood"
         android:textColor="@color/modernTheme"
-
         android:text="save"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fatsId" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginEnd="131dp"
-        android:layout_marginStart="131dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/colorText"
-
-        android:text="Add nutrients per 100r/ml"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/foodNameId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/fatsId"
+        android:layout_marginRight="120dp"
+        android:layout_marginLeft="121dp" />
 
 </android.support.constraint.ConstraintLayout>
