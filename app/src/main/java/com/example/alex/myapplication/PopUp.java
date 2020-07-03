@@ -42,7 +42,7 @@ public class PopUp extends AppCompatActivity {
     private void calculateGraml(int graml,View v,int position) {
         dbHandler = new DatabaseHandler(v.getContext(), null, null, 1);
         dailyDbHelper = new DailyDbHelper(v.getContext(), null, null, 1);
-        final ArrayList<Food> foodList = dbHandler.loadHandler2();
+        final ArrayList<Food> foodList = dbHandler.loadFoodsHandler();
         Food food = foodList.get(position);
         int fg = food.getGram();
         int kc =food.getKcal();

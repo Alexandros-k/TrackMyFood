@@ -27,7 +27,7 @@ public class FoodLibraryCustomAdapter extends BaseAdapter {
 
     public FoodLibraryCustomAdapter(Context context) {
         dbHandler = new DatabaseHandler(context, null, null, 1);
-        foodList = dbHandler.loadHandler2();
+        foodList = dbHandler.loadFoodsHandler();
         dpList = new ArrayList<>();
         dailyDbHelper = new DailyDbHelper(context, null, null, 1);
 
@@ -91,9 +91,9 @@ public class FoodLibraryCustomAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View view) {
-                final ArrayList<Food> foodList = dbHandler.loadHandler2();
+                final ArrayList<Food> foodList = dbHandler.loadFoodsHandler();
                 int i = foodList.get(position).getID();
-                dbHandler.deleteHandler3(i);
+                dbHandler.deleteFoodHandler(i);
                 dpList.remove(position);
                 notifyDataSetChanged();
             }

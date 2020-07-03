@@ -56,14 +56,14 @@ public class AddFoodFragment extends Fragment {
     public void addFood(String name, int gram){
         DatabaseHandler dbHandler = new DatabaseHandler(getContext(), null, null, 1);
         DailyDbHelper dailyDbHelper = new DailyDbHelper(getContext(), null, null, 1);
-        Food f1 = dbHandler.findHandler(name);
+        Food f1 = dbHandler.findFoodHandler(name);
         if(f1==null){
             Intent intent =new Intent(getContext(), FoodRegistration.class);
             intent.putExtra("Name",name);
             intent.putExtra("Gram",gram);
             startActivity(intent);
         }else {
-            Food foodCopy = dbHandler.findHandler(f1.getName());
+            Food foodCopy = dbHandler.findFoodHandler(f1.getName());
             dailyDbHelper.addTodayFoodHandler(foodCopy);
             Toast.makeText(getContext(), "Food saved!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getContext(), MainActivity.class));

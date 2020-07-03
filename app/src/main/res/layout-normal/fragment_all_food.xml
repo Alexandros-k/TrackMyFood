@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/modernTheme"
-    tools:context="com.example.alex.myapplication.AllFoodFragment">
+    tools:context="com.example.alex.myapplication.FoodLibraryFragment">
 
     <TextView
         android:id="@+id/textView15"

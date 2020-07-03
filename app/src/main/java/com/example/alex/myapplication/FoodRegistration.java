@@ -74,7 +74,7 @@ public class FoodRegistration extends AppCompatActivity {
             String day = dateFormatter.format(now);
            // dailyDbHelper.makeTable(day, dailyDbHelper);
         }
-        Food f1 = dbHandler.findHandler(name);
+        Food f1 = dbHandler.findFoodHandler(name);
         dailyDbHelper.addTodayFoodHandler(f1);
     }
 
@@ -88,19 +88,8 @@ public class FoodRegistration extends AppCompatActivity {
         int carbs = Integer.parseInt(foodCarbs.getText().toString());
         int fats = Integer.parseInt(foodFats.getText().toString());
         Food food = new Food(name, kcal, gram, protein, carbs, fats);
-        dbHandler.addHandler(food);
+        dbHandler.addFoodHandler(food);
     }
-
-    /*public void loadFoods(View view) {
-        DatabaseHandler dbHandler = new DatabaseHandler(this, null, null, 1);
-        textView.setText(dbHandler.loadHandler());
-        foodName.setText("");
-        foodKcal.setText("");
-        foodGram.setText("");
-        foodProtein.setText("");
-        foodCarbs.setText("");
-        foodFats.setText("");
-    }*/
 
     @Override
     public boolean onSupportNavigateUp() {
