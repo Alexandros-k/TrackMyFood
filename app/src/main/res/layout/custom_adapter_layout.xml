@@ -13,7 +13,6 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvFats"
@@ -31,8 +30,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-
-
         android:layout_marginBottom="7dp"
         android:layout_marginTop="8dp"
         android:layout_toLeftOf="@+id/tvName"
@@ -47,7 +44,6 @@
         android:id="@+id/tvKcal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignBaseline="@+id/tvName"
         android:layout_alignBottom="@+id/tvName"
         android:layout_marginBottom="7dp"
@@ -65,7 +61,6 @@
         android:id="@+id/tvProtein"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_below="@+id/tvId"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="8dp"
@@ -98,7 +93,6 @@
         android:id="@+id/tvFats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -132,8 +126,6 @@
         android:id="@+id/buttondel"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-
-
         android:layout_below="@+id/tvGram"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="7dp"
@@ -152,8 +144,6 @@
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-
-
         android:layout_below="@+id/tvGram"
         android:layout_marginBottom="1dp"
         android:layout_marginTop="7dp"

@@ -80,7 +80,7 @@ public class FoodLibraryCustomAdapter extends BaseAdapter {
         TextView foodFats = view.findViewById(R.id.tvFats);
 
         foodId.setText(String.valueOf(dpList.get(position).getID()));
-        foodName.setText(String.valueOf(dpList.get(position).getName()));
+        foodName.setText(String.valueOf(dpList.get(position).getName()).substring(0,4));
         foodKcal.setText(String.valueOf(dpList.get(position).getKcal()));
         foodGram.setText(String.valueOf(dpList.get(position).getGram()));
         foodProtein.setText(String.valueOf(dpList.get(position).getProtein()));

@@ -100,7 +100,7 @@ public class TodayFoodCustomAdapter extends BaseAdapter {
         TextView foodFats = view.findViewById(R.id.tvFats);
 
         foodId.setText("ID: " + String.valueOf(dpList.get(position).getID()));
-        foodName.setText(String.valueOf(dpList.get(position).getName()));
+        foodName.setText(String.valueOf(dpList.get(position).getName()).substring(0,4));
         foodKcal.setText(String.valueOf(dpList.get(position).getKcal()) + " gr");
         foodGram.setText(String.valueOf(dpList.get(position).getGram()));
         foodProtein.setText(String.valueOf(dpList.get(position).getProtein() + " gr"));
