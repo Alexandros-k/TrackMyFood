@@ -11,10 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by Alex on 2/14/2018.
  */
@@ -58,7 +54,7 @@ public class AddFoodFragment extends Fragment {
     }
 
     public void addFood(String name, int gram){
-        MyDBHandler dbHandler = new MyDBHandler(getContext(), null, null, 1);
+        DatabaseHandler dbHandler = new DatabaseHandler(getContext(), null, null, 1);
         DailyDbHelper dailyDbHelper = new DailyDbHelper(getContext(), null, null, 1);
         Food f1 = dbHandler.findHandler(name);
         if(f1==null){

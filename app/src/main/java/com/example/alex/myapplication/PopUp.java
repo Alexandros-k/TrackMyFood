@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PopUp extends AppCompatActivity {
     DailyDbHelper dailyDbHelper;
-    MyDBHandler dbHandler;
+    DatabaseHandler dbHandler;
     PopupWindow popUpWindow;
 
     @Override
@@ -33,14 +33,14 @@ public class PopUp extends AppCompatActivity {
                 EditText et = findViewById(R.id.tvId);
                 int graml =  Integer.parseInt(et.getText().toString());
                 calculateGraml(graml,v,position);
-                AllFoodFragment.hideButtons();
+                FoodLibraryFragment.hideButtons();
                 finish();
             }
         });
     }
 
     private void calculateGraml(int graml,View v,int position) {
-        dbHandler = new MyDBHandler(v.getContext(), null, null, 1);
+        dbHandler = new DatabaseHandler(v.getContext(), null, null, 1);
         dailyDbHelper = new DailyDbHelper(v.getContext(), null, null, 1);
         final ArrayList<Food> foodList = dbHandler.loadHandler2();
         Food food = foodList.get(position);
@@ -51,7 +51,7 @@ public class PopUp extends AppCompatActivity {
         int f=food.getFats();
           Food  f1 =  calculateMn(food.getName(),graml,fg,kc,p,c,f);
             dailyDbHelper.addTodayFoodHandler(f1);
-       CustomAdapter3 ca3= new CustomAdapter3(getApplicationContext());
+       FoodLibraryCustomAdapter ca3= new FoodLibraryCustomAdapter(getApplicationContext());
         ca3.notifyDataSetChanged();
     }
 

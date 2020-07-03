@@ -19,17 +19,15 @@ import java.util.Locale;
  * Created by Alex on 2/10/2018.
  */
 
-public class CustomAdapter2 extends BaseAdapter {
+public class TodayFoodCustomAdapter extends BaseAdapter {
     ArrayList<Food> foodList;
     ArrayList<DataProviderToCustomAdapter> dpList;
     DailyDbHelper dailyDbHelper;
     DataProviderToCustomAdapter dp;
     TodayFoodFragment todayFood;
-    Date now = new Date();
-    DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-    String day = dateFormatter.format(now);
+    String day = Utility.getCurrentDate();
 
-    public CustomAdapter2(Context context, TodayFoodFragment tf) {
+    public TodayFoodCustomAdapter(Context context, TodayFoodFragment tf) {
         todayFood = tf;
         dailyDbHelper = new DailyDbHelper(context, null, null, 1);
         foodList = dailyDbHelper.loadFoodHandler(day);
@@ -48,26 +46,7 @@ public class CustomAdapter2 extends BaseAdapter {
         }
     }
 
-    public CustomAdapter2(Context context, ArrayList<Food> foodList1) {
-        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
-        foodList = foodList1;
-        dpList = new ArrayList<>();
-        for (int i = 0; i < foodList.size(); i++) {
-            dp = new DataProviderToCustomAdapter(
-                    foodList.get(i).getID(),
-                    foodList.get(i).getName(),
-                    foodList.get(i).getGram(),
-                    foodList.get(i).getKcal(),
-                    foodList.get(i).getProtein(),
-                    foodList.get(i).getCarbs(),
-                    foodList.get(i).getFats()
-
-            );
-            dpList.add(dp);
-        }
-    }
-
-    public CustomAdapter2(Context context, ArrayList<Food> foodList1, TodayFoodFragment tf) {
+    public TodayFoodCustomAdapter(Context context, ArrayList<Food> foodList1, TodayFoodFragment tf) {
         todayFood = tf;
         dailyDbHelper = new DailyDbHelper(context, null, null, 1);
         foodList = foodList1;

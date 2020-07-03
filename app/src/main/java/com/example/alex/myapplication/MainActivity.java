@@ -1,13 +1,10 @@
 package com.example.alex.myapplication;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
@@ -15,7 +12,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -123,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new MainActivityFragment(),"MAIN");
         adapter.addFragment(new TodayFoodFragment(),"TODAY FOOD");
-        adapter.addFragment(new AllFoodFragment(),"FOOD LIBRARY");
+        adapter.addFragment(new FoodLibraryFragment(),"FOOD LIBRARY");
         //adapter.addFragment(new AddFoodFragment(),"ADD FOOD");
         viewPager.setAdapter(adapter);
     }

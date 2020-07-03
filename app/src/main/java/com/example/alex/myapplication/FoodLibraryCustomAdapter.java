@@ -2,7 +2,6 @@ package com.example.alex.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,45 +18,43 @@ import static android.support.v4.content.ContextCompat.startActivity;
  * Created by Alex on 2/10/2018.
  */
 
-public class CustomAdapter3 extends BaseAdapter {
+public class FoodLibraryCustomAdapter extends BaseAdapter {
     ArrayList<Food> foodList;
     ArrayList<DataProviderToCustomAdapter> dpList;
-    MyDBHandler dbHandler;
+    DatabaseHandler dbHandler;
     DataProviderToCustomAdapter dp;
     DailyDbHelper dailyDbHelper;
 
-    public CustomAdapter3(Context context) {
-        dbHandler = new MyDBHandler(context, null, null, 1);
+    public FoodLibraryCustomAdapter(Context context) {
+        dbHandler = new DatabaseHandler(context, null, null, 1);
         foodList = dbHandler.loadHandler2();
         dpList = new ArrayList<>();
- dailyDbHelper = new DailyDbHelper(context, null, null, 1);
+        dailyDbHelper = new DailyDbHelper(context, null, null, 1);
 
-            for (int i = 0; i < foodList.size(); i++)
-            {
-                dp = new DataProviderToCustomAdapter(
-                        foodList.get(i).getID(),
-                        foodList.get(i).getName(),
-                        foodList.get(i).getGram(),
-                        foodList.get(i).getKcal(),
-                        foodList.get(i).getProtein(),
-                        foodList.get(i).getCarbs(),
-                        foodList.get(i).getFats()
+        for (int i = 0; i < foodList.size(); i++) {
+            dp = new DataProviderToCustomAdapter(
+                    foodList.get(i).getID(),
+                    foodList.get(i).getName(),
+                    foodList.get(i).getGram(),
+                    foodList.get(i).getKcal(),
+                    foodList.get(i).getProtein(),
+                    foodList.get(i).getCarbs(),
+                    foodList.get(i).getFats()
 
-                );
-                dpList.add(dp);
-            }
+            );
+            dpList.add(dp);
+        }
 
     }
 
     @Override
     public int getCount() {
-        return dpList.size();
-        // total number of elements in the list
+        return dpList.size(); // total number of elements in the list
     }
 
     @Override
     public Object getItem(int position) {
-        return dpList.get(position);    // single item in the list
+        return dpList.get(position);  // single item in the list
     }
 
     @Override
@@ -94,33 +91,23 @@ public class CustomAdapter3 extends BaseAdapter {
 
             @Override
             public void onClick(View view) {
-                
-                    final ArrayList<Food> foodList = dbHandler.loadHandler2();
-                    int i = foodList.get(position).getID();
-                    dbHandler.deleteHandler3(i);
-
+                final ArrayList<Food> foodList = dbHandler.loadHandler2();
+                int i = foodList.get(position).getID();
+                dbHandler.deleteHandler3(i);
                 dpList.remove(position);
-
                 notifyDataSetChanged();
-
             }
         });
-
-
 
         Button addBtn = view.findViewById(R.id.buttonAdd);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(v.getContext(),PopUp.class);
-                in.putExtra("position",position);
-                startActivity(v.getContext(),in,null);
+                Intent in = new Intent(v.getContext(), PopUp.class);
+                in.putExtra("position", position);
+                startActivity(v.getContext(), in, null);
             }
         });
-
-
         return view;
     }
-
-
 }

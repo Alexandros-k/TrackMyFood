@@ -12,8 +12,7 @@ import java.util.ArrayList;
  * Created by Alex on 2/3/2018.
  */
 
-    public class MyDBHandler extends SQLiteOpenHelper {
-        //information of database
+    public class DatabaseHandler extends SQLiteOpenHelper {
 
         private static final int DATABASE_VERSION = 1;
         private static final String DATABASE_NAME = "foodDB.db";
@@ -26,11 +25,8 @@ import java.util.ArrayList;
         public static final String COLUMN_NAME5 = "foodCarbs";
         public static final String COLUMN_NAME6 = "foodFats";
 
-
-
-
         //initialize the database
-        public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
             super(context, DATABASE_NAME, factory , DATABASE_VERSION);
         }
         @Override
@@ -44,18 +40,12 @@ import java.util.ArrayList;
                     + COLUMN_NAME5 +" "+ "INTEGER,"
                     + COLUMN_NAME6 +" "+ "INTEGER)";
             db.execSQL(CREATE_TABLE);
-
-
-
         }
-
-
-
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {}
 
-        public String loadHandler() {
+        /*public String loadHandler() {
             String result = "";
             String query = "Select*FROM"+" " + TABLE_NAME;
             SQLiteDatabase db = this.getWritableDatabase();
@@ -80,7 +70,7 @@ import java.util.ArrayList;
             cursor.close();
             db.close();
             return result;
-        }
+        }*/
 
 
     public ArrayList<Food> loadHandler2() {

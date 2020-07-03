@@ -13,8 +13,6 @@ public class Food {
     private int Carbs;
     private int Fats;
 
-
-
     public Food(int id,String name, int kcal, int gram, int protein, int carbs, int fats) {
         this.name = name;
         Kcal = kcal;
@@ -43,7 +41,6 @@ public class Food {
     }
 
     public Food() {
-
     }
 
     public String getName() {
@@ -102,7 +99,6 @@ public class Food {
     public void setID(int ID) {
         this.ID = ID;
     }
-
 
     @Override
     public String toString() {
