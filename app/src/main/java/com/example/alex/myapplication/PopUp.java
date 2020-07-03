@@ -26,35 +26,17 @@ public class PopUp extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int)(width*.8),(int)(height*.6));
-
-
-
-
-
-
         Button svbtn = findViewById(R.id.SaveBtn);
-
         svbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText et = findViewById(R.id.tvId);
                 int graml =  Integer.parseInt(et.getText().toString());
                 calculateGraml(graml,v,position);
-
                 AllFoodFragment.hideButtons();
-
-
                 finish();
-
-
-
-
             }
         });
-
-
-
-
     }
 
     private void calculateGraml(int graml,View v,int position) {
@@ -67,18 +49,10 @@ public class PopUp extends AppCompatActivity {
         int p=food.getProtein();
         int c=food.getCarbs();
         int f=food.getFats();
-
-
           Food  f1 =  calculateMn(food.getName(),graml,fg,kc,p,c,f);
-
             dailyDbHelper.addTodayFoodHandler(f1);
-
-
        CustomAdapter3 ca3= new CustomAdapter3(getApplicationContext());
         ca3.notifyDataSetChanged();
-
-
-
     }
 
     private Food calculateMn(String name,int newGram, int oldGram, int kc, int p, int c, int f) {
@@ -86,11 +60,7 @@ public class PopUp extends AppCompatActivity {
         int x2 = newGram*p/oldGram;
         int x3 = newGram*c/oldGram;
         int x4 = newGram*f/oldGram;
-
     Food food = new Food(name,x1,newGram,x2,x3,x4);
-
     return food;
     }
-
-
 }

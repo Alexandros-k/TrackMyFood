@@ -62,25 +62,24 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
     public void onStart() {
         super.onStart();
         View view = getView();
+        int textColor = getResources().getColor(R.color.colorText);
         tv1 =view.findViewById(R.id.textView12);
         tv = view.findViewById(R.id.textView11);
         tv2= view.findViewById(R.id.textView2);
         barChart = view.findViewById(R.id.barChart);
+        barChart.setDescriptionColor(textColor);
+        barChart.setDescription("(Gram)");
+        barChart.setDescriptionPosition(900,500);
+        barChart.getXAxis().setTextColor(textColor);
+        barChart.getAxisLeft().setTextColor(textColor);
         displayMicroNutrients();
         Date now = new Date();
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         day = dateFormatter.format(now);
-
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         day = dailyDbHelper.day;
         food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
-
-
-
-
         tv1.setText(day);
-
-
     }
 
     @Override
@@ -89,19 +88,12 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
         barChart.animateXY(2000, 2000);
         barChart.invalidate();
         String day1 = tv1.getText().toString();
-
-       dis(day1);
-
+       showBarChart(day1);
     }
 
 
 
     public void displayMicroNutrients() {
-
-   /*     Date now = new Date();
-        DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y", Locale.ENGLISH);
-        String day = dateFormatter.format(now);
-*/
         tv1.setText(day);
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
         day = dailyDbHelper.day;
@@ -117,15 +109,11 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
         barDataSet.setColors(colors);
         barDataSet.setBarSpacePercent(50f);
         barChart.getAxisLeft().setDrawGridLines(false);
-        //  barChart.getAxisLeft().setEnabled(false);
-
-        barChart.getAxisRight().setTextColor(R.color.colorText);
         barChart.getAxisRight().setDrawGridLines(false);
         barChart.getAxisRight().setEnabled(false);
         barChart.getXAxis().setDrawGridLines(false);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         barChart.getLegend().setEnabled(false);
-        barChart.setDescription("Gram");
         barChart.getAxisLeft().setAxisMinValue(0f);// prepei na ta perasw san dekadikous gia na to bgalw
         barChart.animateXY(2000, 2000);
         barChart.invalidate();
@@ -138,11 +126,9 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
 
         BarData theData = new BarData(xAXis,barDataSet);
         barChart.setData(theData);
-        barChart.setTouchEnabled(true);
-        barChart.setDragEnabled(true);
-        barChart.setScaleEnabled(true);
-
-
+        barChart.setTouchEnabled(false);
+        barChart.setDragEnabled(false);
+        barChart.setScaleEnabled(false);
 
         tv.setText("Today You have consumed: ");
         tv2.setText("kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr ");
@@ -163,14 +149,11 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
         barDataSet.setColors(colors);
         barDataSet.setBarSpacePercent(50f);
         barChart.getAxisLeft().setDrawGridLines(false);
-        //  barChart.getAxisLeft().setEnabled(false);
-        barChart.getAxisRight().setTextColor(R.color.colorText);
         barChart.getAxisRight().setDrawGridLines(false);
         barChart.getAxisRight().setEnabled(false);
         barChart.getXAxis().setDrawGridLines(false);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         barChart.getLegend().setEnabled(false);
-        barChart.setDescription("Gram");
         barChart.getAxisLeft().setAxisMinValue(0f);// prepei na ta perasw san dekadikous gia na to bgalw
         barChart.animateXY(2000, 2000);
         barChart.invalidate();
@@ -182,10 +165,11 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
         xAXis.add("Fats");
 
         BarData theData = new BarData(xAXis,barDataSet);
+        theData.getDataSetByIndex(0).setValueTextColor(-11098468);
         barChart.setData(theData);
-        barChart.setTouchEnabled(true);
-        barChart.setDragEnabled(true);
-        barChart.setScaleEnabled(true);
+        barChart.setTouchEnabled(false);
+        barChart.setDragEnabled(false);
+        barChart.setScaleEnabled(false);
 
         tv2.setText("kcal " + food1.getKcal()+", " + " protein " + food1.getProtein()+" gr, carbs " + food1.getCarbs()+" gr, " + " fats " + food1.getFats()+" gr ");
 
@@ -196,11 +180,7 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
       tv1.setText(day);
    }
 
-    public void dis(String day ){
-
-
-    //dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-
+    public void showBarChart(String day ){
     food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
 
     barEntries= new ArrayList<>();
@@ -213,14 +193,11 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
     barDataSet.setColors(colors);
     barDataSet.setBarSpacePercent(50f);
     barChart.getAxisLeft().setDrawGridLines(false);
-  //  barChart.getAxisLeft().setEnabled(false);
-    barChart.getAxisRight().setTextColor(R.color.colorText);
     barChart.getAxisRight().setDrawGridLines(false);
     barChart.getAxisRight().setEnabled(false);
     barChart.getXAxis().setDrawGridLines(false);
     barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
     barChart.getLegend().setEnabled(false);
-    barChart.setDescription("Gram");
     barChart.getAxisLeft().setAxisMinValue(0f);// prepei na ta perasw san dekadikous gia na to bgalw
     barChart.animateXY(2000, 2000);
     barChart.invalidate();
@@ -232,18 +209,12 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
     xAXis.add("Fats");
 
     BarData theData = new BarData(xAXis,barDataSet);
+    theData.getDataSetByIndex(0).setValueTextColor(-11098468);
     barChart.setData(theData);
-    barChart.setTouchEnabled(true);
-    barChart.setDragEnabled(true);
-    barChart.setScaleEnabled(true);
-
-
-
-    //tv2.setText("kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr ");
-
-
+    barChart.setTouchEnabled(false);
+    barChart.setDragEnabled(false);
+    barChart.setScaleEnabled(false);
 }
-
 
     public void updateTest(String day) {
         tv1.setText(day);
