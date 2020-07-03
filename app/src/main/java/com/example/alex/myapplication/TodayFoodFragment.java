@@ -44,7 +44,7 @@ public class TodayFoodFragment extends Fragment {
     public Date now;
     public DateFormat dateFormatter;
     public String startingDate;
-
+    MainActivityFragment maf;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +83,7 @@ public class TodayFoodFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+         maf = new MainActivityFragment();
         final View view = getView();
         lv = view.findViewById(R.id.listview1);
         tv1 = view.findViewById(R.id.textView9);
@@ -98,9 +99,7 @@ public class TodayFoodFragment extends Fragment {
         }else{previousBtn.setVisibility(View.VISIBLE);}
         mainActivity = new MainActivity();
         customAdapter = new CustomAdapter2(getContext(), this);
-        now = new Date();
-        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        day = dateFormatter.format(now);
+        day = Utility.getCurrentDate();
         tv1.setText(day);
         lv.setAdapter(customAdapter);
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -176,7 +175,7 @@ public class TodayFoodFragment extends Fragment {
         food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
         tv.setText("               Today You have consumed: \n" +
                 "kcal " + food.getKcal() + ", " + " protein " + food.getProtein() + " gr, carbs " + food.getCarbs() + " gr, " + " fats " + food.getFats() + " gr, ");
-        MainActivityFragment.newdisplayMicroNutrients(food);
+        maf.displayMicroNutrients(food);
     }
 //this is used to get either previous or next date
     public String geRequestedDate(int i) {

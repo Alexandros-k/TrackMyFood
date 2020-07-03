@@ -15,46 +15,40 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by Alex on 2/14/2018.
  */
 
-public class MainActivityFragment extends Fragment implements TodayFoodFragment.Listener{
-    DailyDbHelper dailyDbHelper;
-    private static final String TAG="MainActivityFragment";
-    static TextView tv1;
-    TextView tv;
-    static TextView tv2;
-  static  Food food;
-    String day;
-   static  BarChart barChart;
-   static  ArrayList<BarEntry> barEntries;
-   static  ArrayList<String> xAXis;
+public class MainActivityFragment extends Fragment implements TodayFoodFragment.Listener {
+    private DailyDbHelper dailyDbHelper;
+    private static final String TAG = "MainActivityFragment";
+    private static TextView tv1;
+    private TextView tv;
+    private static TextView tv2;
+    private static Food food;
+    private String day;
+    private static BarChart barChart;
+    private static ArrayList<BarEntry> barEntries;
+    private static ArrayList<String> xAXis;
+    private int textColor;
+    private BarDataSet barDataSet;
+    private BarData barChartData;
+    private int[] colors;
 
     public MainActivityFragment() {
-
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main,container,false);
-
-
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
         return view;
     }
 
@@ -62,24 +56,17 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
     public void onStart() {
         super.onStart();
         View view = getView();
-        int textColor = getResources().getColor(R.color.colorText);
-        tv1 =view.findViewById(R.id.textView12);
+        textColor = getResources().getColor(R.color.colorText);
+        tv1 = view.findViewById(R.id.textView12);
         tv = view.findViewById(R.id.textView11);
-        tv2= view.findViewById(R.id.textView2);
+        tv2 = view.findViewById(R.id.textView2);
         barChart = view.findViewById(R.id.barChart);
-        barChart.setDescriptionColor(textColor);
-        barChart.setDescription("(Gram)");
-        barChart.setDescriptionPosition(900,500);
-        barChart.getXAxis().setTextColor(textColor);
-        barChart.getAxisLeft().setTextColor(textColor);
-        displayMicroNutrients();
-        Date now = new Date();
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        day = dateFormatter.format(now);
+        day = Utility.getCurrentDate();
         dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        day = dailyDbHelper.day;
         food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
+        displayMicroNutrients(food);
         tv1.setText(day);
+        tv.setText("Today You have consumed: ");
     }
 
     @Override
@@ -87,134 +74,63 @@ public class MainActivityFragment extends Fragment implements TodayFoodFragment.
         super.onResume();
         barChart.animateXY(2000, 2000);
         barChart.invalidate();
-        String day1 = tv1.getText().toString();
-       showBarChart(day1);
+        showBarChart(food);
     }
 
+    public void displayMicroNutrients(Food food) {
+        showBarChart(food);
+        tv2.setText("kcal " + food.getKcal() + ", " + " protein " + food.getProtein() + " gr, carbs " + food.getCarbs() + " gr, " + " fats " + food.getFats() + " gr ");
+    }
 
-
-    public void displayMicroNutrients() {
+    public static void update(String day) {
         tv1.setText(day);
-        dailyDbHelper = new DailyDbHelper(getActivity(), null, null, 1);
-        day = dailyDbHelper.day;
-        food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
+    }
 
-        barEntries= new ArrayList<>();
-        barEntries.add(new BarEntry(((float) food.getKcal()),0));
-        barEntries.add(new BarEntry(((float) food.getProtein()),1));
-        barEntries.add(new BarEntry(((float) food.getCarbs()),2));
-        barEntries.add(new BarEntry(((float) food.getFats()),3));
-        BarDataSet barDataSet = new BarDataSet(barEntries,"Data");
-        int[] colors = new int[] {Color.GREEN, Color.YELLOW, Color.BLACK, Color.BLUE};
-        barDataSet.setColors(colors);
-        barDataSet.setBarSpacePercent(50f);
-        barChart.getAxisLeft().setDrawGridLines(false);
-        barChart.getAxisRight().setDrawGridLines(false);
-        barChart.getAxisRight().setEnabled(false);
-        barChart.getXAxis().setDrawGridLines(false);
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart.getLegend().setEnabled(false);
-        barChart.getAxisLeft().setAxisMinValue(0f);// prepei na ta perasw san dekadikous gia na to bgalw
-        barChart.animateXY(2000, 2000);
-        barChart.invalidate();
+    public void showBarChart(Food food) {
+        createBarChartData(food);
+        setupBarChart();
+        barChart.setData(barChartData);
+    }
 
+    private void createBarChartData(Food food) {
+        barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(((float) food.getKcal()), 0));
+        barEntries.add(new BarEntry(((float) food.getProtein()), 1));
+        barEntries.add(new BarEntry(((float) food.getCarbs()), 2));
+        barEntries.add(new BarEntry(((float) food.getFats()), 3));
+        barDataSet = new BarDataSet(barEntries, "Data");
+        colors = new int[]{Color.GREEN, Color.YELLOW, Color.BLACK, Color.BLUE};
         xAXis = new ArrayList<>();
         xAXis.add("Kcal");
         xAXis.add("Protein");
         xAXis.add("Carbs");
         xAXis.add("Fats");
-
-        BarData theData = new BarData(xAXis,barDataSet);
-        barChart.setData(theData);
-        barChart.setTouchEnabled(false);
-        barChart.setDragEnabled(false);
-        barChart.setScaleEnabled(false);
-
-        tv.setText("Today You have consumed: ");
-        tv2.setText("kcal " + food.getKcal()+", " + " protein " + food.getProtein()+" gr, carbs " + food.getCarbs()+" gr, " + " fats " + food.getFats()+" gr ");
-
-
-    }
-
-    public static void newdisplayMicroNutrients(Food food1) {
-
-        food=food1;
-        barEntries= new ArrayList<>();
-        barEntries.add(new BarEntry(((float) food.getKcal()),0));
-        barEntries.add(new BarEntry(((float) food.getProtein()),1));
-        barEntries.add(new BarEntry(((float) food.getCarbs()),2));
-        barEntries.add(new BarEntry(((float) food.getFats()),3));
-        BarDataSet barDataSet = new BarDataSet(barEntries,"Data");
-        int[] colors = new int[] {Color.GREEN, Color.YELLOW, Color.BLACK, Color.BLUE};
         barDataSet.setColors(colors);
         barDataSet.setBarSpacePercent(50f);
+        barChartData = new BarData(xAXis, barDataSet);
+        barChartData.getDataSetByIndex(0).setValueTextColor(-11098468);
+        barChartData.getDataSetByIndex(0).setValueTextSize(10);
+    }
+
+    private void setupBarChart() {
         barChart.getAxisLeft().setDrawGridLines(false);
         barChart.getAxisRight().setDrawGridLines(false);
         barChart.getAxisRight().setEnabled(false);
         barChart.getXAxis().setDrawGridLines(false);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.setDescriptionColor(-11098468);
+        barChart.setDescription("(Gram)");
+        barChart.setDescriptionPosition(900, 500);
+        barChart.getXAxis().setTextColor(-11098468);
+        barChart.getAxisLeft().setTextColor(-11098468);
         barChart.getLegend().setEnabled(false);
         barChart.getAxisLeft().setAxisMinValue(0f);// prepei na ta perasw san dekadikous gia na to bgalw
         barChart.animateXY(2000, 2000);
         barChart.invalidate();
-
-        xAXis = new ArrayList<>();
-        xAXis.add("Kcal");
-        xAXis.add("Protein");
-        xAXis.add("Carbs");
-        xAXis.add("Fats");
-
-        BarData theData = new BarData(xAXis,barDataSet);
-        theData.getDataSetByIndex(0).setValueTextColor(-11098468);
-        barChart.setData(theData);
         barChart.setTouchEnabled(false);
         barChart.setDragEnabled(false);
         barChart.setScaleEnabled(false);
-
-        tv2.setText("kcal " + food1.getKcal()+", " + " protein " + food1.getProtein()+" gr, carbs " + food1.getCarbs()+" gr, " + " fats " + food1.getFats()+" gr ");
-
-
     }
-
-    public static  void update(String day){
-      tv1.setText(day);
-   }
-
-    public void showBarChart(String day ){
-    food = dailyDbHelper.loadTodaysFoodTotalNutrientsHandler(day);
-
-    barEntries= new ArrayList<>();
-    barEntries.add(new BarEntry(((float) food.getKcal()),0));
-    barEntries.add(new BarEntry(((float) food.getProtein()),1));
-    barEntries.add(new BarEntry(((float) food.getCarbs()),2));
-    barEntries.add(new BarEntry(((float) food.getFats()),3));
-    BarDataSet barDataSet = new BarDataSet(barEntries,"Data");
-    int[] colors = new int[] {Color.GREEN, Color.YELLOW, Color.BLACK, Color.BLUE};
-    barDataSet.setColors(colors);
-    barDataSet.setBarSpacePercent(50f);
-    barChart.getAxisLeft().setDrawGridLines(false);
-    barChart.getAxisRight().setDrawGridLines(false);
-    barChart.getAxisRight().setEnabled(false);
-    barChart.getXAxis().setDrawGridLines(false);
-    barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-    barChart.getLegend().setEnabled(false);
-    barChart.getAxisLeft().setAxisMinValue(0f);// prepei na ta perasw san dekadikous gia na to bgalw
-    barChart.animateXY(2000, 2000);
-    barChart.invalidate();
-
-    xAXis = new ArrayList<>();
-    xAXis.add("Kcal");
-    xAXis.add("Protein");
-    xAXis.add("Carbs");
-    xAXis.add("Fats");
-
-    BarData theData = new BarData(xAXis,barDataSet);
-    theData.getDataSetByIndex(0).setValueTextColor(-11098468);
-    barChart.setData(theData);
-    barChart.setTouchEnabled(false);
-    barChart.setDragEnabled(false);
-    barChart.setScaleEnabled(false);
-}
 
     public void updateTest(String day) {
         tv1.setText(day);

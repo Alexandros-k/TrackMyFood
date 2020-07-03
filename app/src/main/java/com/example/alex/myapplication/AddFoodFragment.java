@@ -25,10 +25,6 @@ public class AddFoodFragment extends Fragment {
     EditText foodGram;
     String name;
     int gram;
-    Date now;
-    MyDBHandler dbHandler;
-    DailyDbHelper dailyDbHelper;
-    SimpleDateFormat dateFormatter;
     private static final String TAG="AddFoodFragment";
 
     @Override
@@ -62,13 +58,8 @@ public class AddFoodFragment extends Fragment {
     }
 
     public void addFood(String name, int gram){
-
-        Date now = new Date();
-        DateFormat dateFormatter = new SimpleDateFormat("E_d_M_y");
-        String day = dateFormatter.format(now);
         MyDBHandler dbHandler = new MyDBHandler(getContext(), null, null, 1);
         DailyDbHelper dailyDbHelper = new DailyDbHelper(getContext(), null, null, 1);
-
         Food f1 = dbHandler.findHandler(name);
         if(f1==null){
             Intent intent =new Intent(getContext(), FoodRegistration.class);
@@ -77,7 +68,6 @@ public class AddFoodFragment extends Fragment {
             startActivity(intent);
         }else {
             Food foodCopy = dbHandler.findHandler(f1.getName());
-//            dailyDbHelper.makeTable(day,dailyDbHelper);
             dailyDbHelper.addTodayFoodHandler(foodCopy);
             Toast.makeText(getContext(), "Food saved!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getContext(), MainActivity.class));

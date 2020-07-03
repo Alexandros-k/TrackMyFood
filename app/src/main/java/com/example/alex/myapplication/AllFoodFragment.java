@@ -20,15 +20,11 @@ import android.widget.TextView;
 public class AllFoodFragment extends Fragment  {
 
     private static final String TAG = "AllFoodFragment";
-
-    DailyDbHelper dailyDbHelper;
-    CustomAdapter3 customAdapter;
-    ListView lv;
-    int i = 0;
-   static TextView tv;
-    static TextView  tv2;
-    FloatingActionButton myFab;
-
+    private  CustomAdapter3 customAdapter;
+    private ListView lv;
+    private static TextView tv;
+    private static TextView tv2;
+    private FloatingActionButton myFab;
 
 
     @Override
@@ -36,7 +32,6 @@ public class AllFoodFragment extends Fragment  {
         super.onCreate(savedInstanceState);
 
     }
-
 
     @Nullable
     @Override
@@ -46,7 +41,6 @@ public class AllFoodFragment extends Fragment  {
 
         return view;
     }
-
 
 
     @Override
@@ -80,7 +74,6 @@ public class AllFoodFragment extends Fragment  {
         });
 
     }
-
 
     public void showButtons(View view) {
 
