@@ -61,7 +61,6 @@ public class PopUp extends AppCompatActivity {
         int x2 = newGram * p / oldGram;
         int x3 = newGram * c / oldGram;
         int x4 = newGram * f / oldGram;
-        Food food = new Food(name, x1, newGram, x2, x3, x4);
-        return food;
+        return new Food(name, x1, newGram, x2, x3, x4);
     }
 }

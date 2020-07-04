@@ -179,8 +179,7 @@ public class TodayFoodFragment extends Fragment {
         String day = geRequestedDate(counter);
         MainActivityFragment.update(day);
         food = DbHelper.loadTodaysFoodTotalNutrientsHandler(day);
-        tv.setText("               Today You have consumed: \n" +
-                "kcal " + food.getKcal() + ", " + " protein " + food.getProtein() + " gr, carbs " + food.getCarbs() + " gr, " + " fats " + food.getFats() + " gr, ");
+        tv.setText(getString(R.string.dailyConsumptionReport,food.getKcal(),food.getProtein(),food.getCarbs(),food.getFats()));
         maf.displayMicroNutrients(food);
     }
 //this is used to get either previous or next date
