@@ -30,26 +30,26 @@ import java.util.Locale;
 
 public class TodayFoodFragment extends Fragment {
     private static final String TAG = "TodayFoodFragment";
-    public DatabaseHandler DbHelper;
-    public TodayFoodCustomAdapter todayFoodCustomAdapter;
-    public ListView lv;
-    public ArrayList<Food> foodList;
+    private DatabaseHandler DbHelper;
+    private TodayFoodCustomAdapter todayFoodCustomAdapter;
+    private ListView lv;
+    private ArrayList<Food> foodList;
     public int counter = 0;
-    public Calendar cal;
-    public static TextView tv1;
-    public MainActivity mainActivity;
-    public TextView tv;
-    public Food food;
-    public DateFormat dateFormat;
-    public TextView tev;
-    public Button previousBtn;
-    public Button nextBtn;
-    public Listener mListener;
-    public String day;
-    public Date now;
-    public DateFormat dateFormatter;
-    public String startingDate;
-    public MainActivityFragment maf;
+    private Calendar cal;
+    private static TextView tv1;
+    private MainActivity mainActivity;
+    private TextView tv;
+    private Food food;
+    private DateFormat dateFormat;
+    private TextView tev;
+    private Button previousBtn;
+    private Button nextBtn;
+    private Listener mListener;
+    private String day;
+    private Date now;
+    private DateFormat dateFormatter;
+    private String startingDate;
+    private MainActivityFragment maf;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
