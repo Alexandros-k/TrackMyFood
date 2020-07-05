@@ -1,15 +1,13 @@
 package com.example.alex.myapplication.Database;
 
-import android.content.ContentValues;
+import java.util.ArrayList;
 import android.content.Context;
 import android.database.Cursor;
+import android.content.ContentValues;
+import com.example.alex.myapplication.Utility;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.example.alex.myapplication.Models.Food;
-import com.example.alex.myapplication.Utility;
-
-import java.util.ArrayList;
 
 /**
  * Created by Alex on 2/3/2018.
@@ -22,15 +20,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "foodDB.db";
     public static final String TABLE_NAME_FOOD_LIBRARY = "FoodLibrary";
     private static final String TABLE_NAME_TODAY_FOOD = "TodayFood";
-    public static final String COLUMN_ID = "foodID";
-    public static final String COLUMN_NAME1 = "foodName";
-    public static final String COLUMN_NAME2 = "foodKcal";
-    public static final String COLUMN_NAME3 = "foodGram";
-    public static final String COLUMN_NAME4 = "foodProtein";
-    public static final String COLUMN_NAME5 = "foodCarbs";
-    public static final String COLUMN_NAME6 = "foodFats";
+    private static final String COLUMN_ID = "foodID";
+    private static final String COLUMN_NAME1 = "foodName";
+    private static final String COLUMN_NAME2 = "foodKcal";
+    private static final String COLUMN_NAME3 = "foodGram";
+    private static final String COLUMN_NAME4 = "foodProtein";
+    private static final String COLUMN_NAME5 = "foodCarbs";
+    private static final String COLUMN_NAME6 = "foodFats";
     private static final String COLUMN_NAME7 = "consumptionDate";
-    public static String CREATE_FOOD_LIBRARY_TABLE = "CREATE TABLE" + " " + TABLE_NAME_FOOD_LIBRARY + "("
+    private static String CREATE_FOOD_LIBRARY_TABLE = "CREATE TABLE" + " " + TABLE_NAME_FOOD_LIBRARY + "("
             + COLUMN_ID + " " + "INTEGER PRIMARY KEY AUTOINCREMENT ,"
             + COLUMN_NAME1 + " " + "TEXT,"
             + COLUMN_NAME2 + " " + "INTEGER,"
@@ -38,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COLUMN_NAME4 + " " + "INTEGER,"
             + COLUMN_NAME5 + " " + "INTEGER,"
             + COLUMN_NAME6 + " " + "INTEGER)";
-    public String CREATE_DAILY_FOOD_TABLE = "CREATE TABLE IF NOT EXISTS"+" "+ TABLE_NAME_TODAY_FOOD + "("
+    private String CREATE_DAILY_FOOD_TABLE = "CREATE TABLE IF NOT EXISTS"+" "+ TABLE_NAME_TODAY_FOOD + "("
             + COLUMN_ID +" "+ "INTEGER PRIMARY KEY ,"
             + COLUMN_NAME1 +" "+"TEXT,"
             + COLUMN_NAME2 +" "+ "INTEGER,"
